@@ -1,111 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shiv Shankar Sah | System Engineer Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Who's Watching?</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; }
-    :root {
-      --bg: #0f172a;
-      --text: #f1f5f9;
+    body {
+      margin: 0;
+      background-color: #111;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
     }
-    .light-mode {
-      --bg: #f8fafc;
-      --text: #0f172a;
+    h1 {
+      margin-bottom: 2rem;
+      font-size: 3rem;
     }
-    header { background: #1e293b; padding: 2rem; text-align: center; }
-    header h1 { font-size: 2.5rem; font-weight: 800; }
-    header p { font-size: 1.2rem; color: #94a3b8; }
-    nav { margin-top: 1rem; }
-    nav a { color: #38bdf8; margin: 0 1rem; text-decoration: none; font-weight: 600; }
-    #toggle-theme { background: none; border: 1px solid #38bdf8; padding: 0.3rem 1rem; color: #38bdf8; cursor: pointer; border-radius: 6px; margin-left: 1rem; }
-    section { padding: 4rem 2rem; max-width: 900px; margin: auto; }
-    .section-title { font-size: 2rem; margin-bottom: 1rem; border-left: 4px solid #38bdf8; padding-left: 0.5rem; }
-    .skills, .projects, .experience { display: grid; gap: 1rem; }
-    .card { background: #1e293b; padding: 1.5rem; border-radius: 0.75rem; transition: transform 0.3s ease; }
-    .card:hover { transform: translateY(-5px); }
-    .contact a, .resume-btn { display: inline-block; margin-right: 1rem; color: #38bdf8; text-decoration: none; font-weight: 600; }
-    .projects .card a { color: #90ee90; } /* Light green for GitHub link */
-    footer { text-align: center; padding: 2rem; font-size: 0.9rem; color: #94a3b8; background: #1e293b; }
+    .options {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .option {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+    }
+    .option img {
+      width: 120px;
+      height: 120px;
+      border-radius: 10px;
+      transition: transform 0.2s;
+    }
+    .option:hover img {
+      transform: scale(1.1);
+    }
+    .label {
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1 data-aos="fade-down">Shiv Shankar Sah</h1>
-    <p data-aos="fade-up">System Engineer | Cloud Enthusiast | IT Support Specialist</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-      <button id="toggle-theme">Toggle Theme</button>
-    </nav>
-  </header>
-
-  <section id="about" data-aos="fade-up">
-    <h2 class="section-title">About Me</h2>
-    <p>I’m a dedicated System Engineer with strong experience in IT support, Microsoft 365, Azure, and automation. Known for my troubleshooting skills and documentation habits, I bring reliability and clarity into every solution. Currently excelling at Bluescale, I'm focused on transitioning into deeper cloud roles with a strong infrastructure and cybersecurity mindset.</p>
-  </section>
-
-  <section id="skills" data-aos="fade-up">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills">
-      <div class="card">Microsoft 365, Azure, Exchange, Intune</div>
-      <div class="card">Active Directory, Entra, SharePoint</div>
-      <div class="card">Windows, macOS, Linux</div>
-      <div class="card">Python, PowerShell Scripting</div>
-      <div class="card">Datto RMM, Autotask, Jira</div>
-      <div class="card">CrowdStrike, Mimecast, MDM Tools</div>
-    </div>
-  </section>
-
-  <section id="projects" data-aos="fade-up">
-    <h2 class="section-title">Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>Password Expiry Notifier</h3>
-        <p>A C# desktop app that logs into Microsoft 365, finds users with soon-to-expire passwords, sends reminder emails, logs actions, and runs daily via system tray.</p>
-        <a href="https://github.com/razan-sah/password-expiry-notifier" target="_blank">View on GitHub</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience" data-aos="fade-up">
-    <h2 class="section-title">Experience</h2>
-    <div class="experience">
-      <div class="card">
-        <h3>System Engineer – Bluescale</h3>
-        <p>Resolving escalated tickets, managing backups, patching servers, maintaining documentation, and investigating network performance. Skilled in AD, DNS, DHCP, VPN, and endpoint security tools like CrowdStrike, Datto SAAS Defense, and Forcepoint.</p>
-        <p><em>Jan 2023 – Present</em></p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" data-aos="fade-up">
-    <h2 class="section-title">Contact</h2>
-    <div class="contact">
-      <a href="mailto:rajansah4u@gmail.com">Email Me</a>
-      <a href="https://www.linkedin.com/in/razansah" target="_blank">LinkedIn</a>
-      <a href="https://github.com/razan-sah" target="_blank">GitHub</a>
-      <a class="resume-btn" href="resume.pdf" download>Download Resume</a>
-    </div>
-  </section>
-
-  <footer>
-    &copy; 2025 Shiv Shankar Sah. All rights reserved.
-  </footer>
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-    document.getElementById('toggle-theme').addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-    });
-  </script>
+  <h1>Who's Watching?</h1>
+  <div class="options">
+    <a href="main.html" class="option">
+      <img src="https://i.imgur.com/YOUR_IMAGE1.png" alt="Recruiter">
+      <div class="label">Recruiter</div>
+    </a>
+    <a href="main.html" class="option">
+      <img src="https://i.imgur.com/YOUR_IMAGE2.png" alt="Developer">
+      <div class="label">Developer</div>
+    </a>
+    <a href="main.html" class="option">
+      <img src="https://i.imgur.com/YOUR_IMAGE3.png" alt="Stalker">
+      <div class="label">Stalker</div>
+    </a>
+    <a href="main.html" class="option">
+      <img src="https://i.imgur.com/YOUR_IMAGE4.png" alt="Adventurer">
+      <div class="label">Adventurer</div>
+    </a>
+  </div>
 </body>
 </html>
