@@ -32,9 +32,7 @@
       --accent: #38bdf8;
       --muted-text: #94a3b8;
       --link-green: #90ee90;
-      --icon-fill: #f1f5f9;
-      --tooltip-bg: #333;
-      --tooltip-text: #fff;
+      /* --icon-fill is no longer needed for theme toggle if using emojis directly */
     }
     .light-mode {
       --bg: #f8fafc;
@@ -43,9 +41,6 @@
       --accent: #0ea5e9;
       --muted-text: #475569;
       --link-green: #22c55e;
-      --icon-fill: #0f172a;
-      --tooltip-bg: #eee;
-      --tooltip-text: #333;
     }
 
     #tsparticles {
@@ -84,65 +79,41 @@
     nav a { color: var(--accent); margin: 0 0.5rem; text-decoration: none; font-weight: 600; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 4px; }
     nav a:hover { color: var(--text); background-color: rgba(128,128,128,0.1); }
 
+    /* New Emoji Theme Toggle Button Styles */
     #theme-toggle-button {
         position: absolute;
         top: 1.5rem;
-        right: 1.5rem; /* Adjusted for potentially smaller screens */
-        background: none;
-        border: none;
+        right: 1.5rem;
+        background-color: var(--card-bg);
+        color: var(--text); /* For emoji color */
+        border: 1px solid var(--accent);
         cursor: pointer;
-        padding: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: background-color 0.3s, transform 0.3s ease;
+        padding: 0.5rem 0.75rem;
+        font-size: 1.5rem; /* Adjust for emoji size */
+        line-height: 1; /* Center emoji vertically */
+        border-radius: 8px;
+        transition: background-color 0.3s, color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
         outline: none;
         z-index: 20;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        user-select: none; /* Prevent text selection of emoji */
+    }
+    .light-mode #theme-toggle-button {
+        border-color: var(--accent);
     }
     #theme-toggle-button:hover {
-        background-color: rgba(128, 128, 128, 0.2);
-        transform: rotate(20deg) scale(1.1);
+        background-color: var(--accent);
+        color: var(--bg); /* Emoji color on hover, contrasting with accent */
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
     #theme-toggle-button:active {
-        transform: scale(0.95);
+        transform: scale(0.98);
     }
-    #theme-toggle-button svg {
-        width: 26px;
-        height: 26px;
-        fill: var(--icon-fill);
-        transition: transform 0.3s ease;
-    }
-    #theme-toggle-button::after { /* Tooltip */
-        content: 'Change Theme';
-        position: absolute;
-        bottom: -2.5em;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: var(--tooltip-bg);
-        color: var(--tooltip-text);
-        padding: 0.4em 0.8em;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        font-weight: 500;
-        white-space: nowrap;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.2s 0.1s ease, visibility 0.2s 0.1s ease; /* Added slight delay */
-        z-index: 100;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    #theme-toggle-button:hover::after {
-        opacity: 1;
-        visibility: visible;
-    }
-    .icon-sun, .icon-moon { display: none; }
-    body:not(.light-mode) .icon-sun { display: block; }
-    body.light-mode .icon-moon { display: block; }
-
+    /* End New Emoji Theme Toggle Button Styles */
 
     section {
-      padding: 3rem 1.5rem; /* Adjusted padding */
+      padding: 3rem 1.5rem;
       max-width: 900px;
       margin: auto;
       position: relative;
@@ -158,12 +129,12 @@
     }
     .skills, .projects, .experience { display: grid; gap: 1.5rem; }
     .skills {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Slightly larger min card width */
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
     .card {
       background: var(--card-bg);
       padding: 1.5rem;
-      border-radius: 8px; /* Consistent rounding */
+      border-radius: 8px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
@@ -171,7 +142,7 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.07);
     }
     .card:hover {
-      transform: translateY(-6px); /* More pronounced hover */
+      transform: translateY(-6px);
       box-shadow: 0 12px 20px rgba(0,0,0,0.1);
     }
     .card h3 {
@@ -193,7 +164,7 @@
       color: var(--accent);
       text-decoration: none;
       font-weight: 600;
-      padding: 0.7rem 1.3rem; /* Slightly increased padding */
+      padding: 0.7rem 1.3rem;
       border: 1.5px solid var(--accent);
       border-radius: 6px;
       transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s ease;
@@ -201,7 +172,7 @@
     .contact-link:hover {
         background-color: var(--accent);
         color: var(--card-bg);
-        transform: translateY(-2px); /* Slight lift on hover */
+        transform: translateY(-2px);
     }
     .contact-link:hover .contact-icon {
         fill: var(--card-bg);
@@ -233,10 +204,9 @@
       z-index: 1;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 768px) {
         .header-container { padding: 1rem 1.5rem; }
-        #theme-toggle-button { top: 1rem; right: 1rem; }
+        #theme-toggle-button { top: 1rem; right: 1rem; font-size: 1.3rem; padding: 0.4rem 0.6rem;}
         header h1 { font-size: 2rem; }
         header p { font-size: 1rem; }
         nav a { margin: 0 0.4rem; font-size: 0.9rem; }
@@ -247,10 +217,9 @@
     @media (max-width: 480px) {
         nav { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; }
         nav a { margin: 0.2rem 0; }
-        .skills { grid-template-columns: 1fr; } /* Stack skills on very small screens */
+        .skills { grid-template-columns: 1fr; }
         .contact { display: flex; flex-direction: column; align-items: stretch; }
         .contact-link { width: 100%; text-align: center; margin: 0.3rem 0; justify-content: center;}
-
     }
 
   </style>
@@ -260,8 +229,7 @@
 
   <div class="header-container">
     <button id="theme-toggle-button" aria-label="Toggle theme">
-      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3zm0-7v4h-1V2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" opacity=".3"/><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36A7.004 7.004 0 0012 5c-1.77 0-3.37.66-4.57 1.73A8.997 8.997 0 0112 3zm0-2C6.48 1 1 5.48 1 12s5.48 11 11 11 11-5.48 11-11S17.52 1 12 1zm-1 5V2h2v4h-2zm0 14v-4h2v4h-2zM4.22 5.64l2.83 2.83L5.64 9.88 2.81 7.05l1.41-1.41zm12.73 12.73l-2.83-2.83 1.41-1.41 2.83 2.83-1.41 1.41zM23 11v2h-4v-2h4zm-19 0v2H0v-2h4zm14.36.22l-2.83-2.83-1.41 1.41 2.83 2.83 1.41-1.41zm-12.73 0l2.83-2.83 1.41 1.41-2.83 2.83-1.41-1.41z"/></svg>
-      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.37.14A12.022 12.022 0 0012 0C5.48 0 0 5.48 0 12s5.48 12 12 12c.34 0 .68-.02 1.01-.05C10.1 23.31 8 20.21 8 16.68 8 11.32 12.87 7.22 18.11 7.5c3.39.18 5.96 2.82 6.7 6.14.21 1.09.33 2.23.33 3.36 0 .09 0 .19-.01.28-.74-3.45-3.58-6.19-7.02-6.73C14.77 16.43 12 14.04 12 10.68c0-2.9 1.75-5.52 4.37-6.57-.1-.02-.19-.05-.29-.07a11.97 11.97 0 00-3.71-3.9z" opacity=".3"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.34 0 .67-.02 1-.05-2.86-.96-5-3.56-5-6.63 0-3.81 3.06-6.93 6.84-6.93.62 0 1.22.08 1.79.23C16.02 5.22 13.19 2.98 10 .37A9.894 9.894 0 0012 2zm7.89 8.5c-5.24-.28-10.11 3.82-10.11 9.18 0 3.53 2.1 6.63 5.12 7.28.33.03.67.05 1 .05 5.52 0 10-4.48 10-10 0-1.13-.12-2.27-.33-3.36-.74-3.32-3.31-5.96-6.7-6.14z"/></svg>
+      {/* Emoji will be inserted by JavaScript */}
     </button>
     <header>
       <div id="custom-greeting"></div>
@@ -367,13 +335,19 @@
     // Theme Toggle
     const themeToggleButton = document.getElementById('theme-toggle-button');
     const body = document.body;
+    const sunIcon = '🌞'; // Unicode: U+1F506
+    const moonIcon = '🌙'; // Unicode: U+1F319
 
     function setTheme(themeName) {
         localStorage.setItem('theme', themeName);
         if (themeName === 'light-mode') {
             body.classList.add('light-mode');
-        } else {
+            themeToggleButton.textContent = moonIcon;
+            themeToggleButton.setAttribute('aria-label', 'Switch to dark theme');
+        } else { // dark-mode
             body.classList.remove('light-mode');
+            themeToggleButton.textContent = sunIcon;
+            themeToggleButton.setAttribute('aria-label', 'Switch to light theme');
         }
     }
 
@@ -385,11 +359,12 @@
       }
     });
 
+    // Load saved theme preference or default to dark
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         setTheme(savedTheme);
     } else {
-        setTheme('dark-mode');
+        setTheme('dark-mode'); // Default to dark mode
     }
 
     // Dynamic Year for Footer
