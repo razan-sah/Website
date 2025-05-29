@@ -13,49 +13,53 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      transition: background 0.3s, color 0.3s;
-      position: relative; /* Needed for z-index context if particles were not fixed */
+      transition: background-color 0.3s, color 0.3s; /* Specific transitions */
+      position: relative;
     }
     :root {
-      --bg: #0f172a;  /* Dark blue slate */
-      --text: #f1f5f9; /* Light slate */
-      --card-bg: #1e293b; /* Darker blue slate for cards */
-      --accent: #38bdf8; /* Sky blue */
-      --muted-text: #94a3b8; /* Medium slate */
-      --link-green: #90ee90; /* Light green for GitHub links */
+      --bg: #0f172a;
+      --text: #f1f5f9;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --muted-text: #94a3b8;
+      --link-green: #90ee90;
+      --icon-fill: #f1f5f9; /* For SVG icons in dark mode */
     }
     .light-mode {
-      --bg: #f8fafc; /* Very light gray / Almost white */
-      --text: #0f172a; /* Dark blue slate (text on light) */
-      --card-bg: #e2e8f0; /* Lighter slate for cards in light mode */
-      --accent: #0ea5e9; /* Slightly darker sky blue for light mode contrast */
-      --muted-text: #475569; /* Darker muted text for light mode */
-      --link-green: #22c55e; /* Darker green for light mode */
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --card-bg: #e2e8f0;
+      --accent: #0ea5e9;
+      --muted-text: #475569;
+      --link-green: #22c55e;
+      --icon-fill: #0f172a; /* For SVG icons in light mode */
     }
 
-    /* tsParticles container styling */
     #tsparticles {
       position: fixed;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
-      z-index: -1; /* Behind all other content */
-      /* The background of the particles canvas will be transparent,
-         so it inherits the body's background or you can set one here if needed */
+      z-index: -1;
+    }
+
+    .header-container { /* New wrapper for header content + toggle */
+        position: relative; /* For positioning the toggle button */
+        background: rgba(30, 41, 59, 0.85); /* Dark mode header bg */
+        padding: 1.5rem 2rem; /* Adjusted padding */
+        z-index: 10; /* Above particles and other content */
+    }
+    .light-mode .header-container {
+        background: rgba(241, 245, 249, 0.9); /* Light mode header bg (more opaque) */
     }
 
     header {
-      background: rgba(30, 41, 59, 0.8); /* Slightly transparent header on dark */
-      padding: 2rem;
       text-align: center;
-      position: relative; /* Ensure header content is above particles */
-      z-index: 1;
+      max-width: 900px; /* Max width for header content */
+      margin: 0 auto; /* Center header content */
     }
-    .light-mode header {
-        background: rgba(226, 232, 240, 0.8); /* Slightly transparent header on light */
-    }
-    header h1 { font-size: 2.5rem; font-weight: 800; }
+    header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.25rem; }
     header p { font-size: 1.2rem; color: var(--muted-text); }
     #custom-greeting {
         font-size: 1.1rem;
@@ -63,41 +67,53 @@
         margin-bottom: 0.75rem;
         font-weight: 600;
     }
-    nav { margin-top: 1rem; }
-    nav a { color: var(--accent); margin: 0 1rem; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-    nav a:hover { color: var(--text); } /* Brighter on hover */
-    #toggle-theme {
-      background: none;
-      border: 1px solid var(--accent);
-      padding: 0.3rem 1rem;
-      color: var(--accent);
-      cursor: pointer;
-      border-radius: 6px;
-      margin-left: 1rem;
-      font-weight: 600;
-      transition: background-color 0.2s, color 0.2s;
+    nav { margin-top: 1.5rem; }
+    nav a { color: var(--accent); margin: 0 0.75rem; text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    nav a:hover { color: var(--text); }
+
+    #theme-toggle-button {
+        position: absolute;
+        top: 1.5rem; /* Adjust as needed */
+        right: 2rem; /* Adjust as needed */
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.2s;
     }
-    #toggle-theme:hover {
-        background-color: var(--accent);
-        color: var(--bg); /* Invert colors for button text */
+    #theme-toggle-button:hover {
+        background-color: rgba(128, 128, 128, 0.2);
     }
+    #theme-toggle-button svg {
+        width: 24px;
+        height: 24px;
+        fill: var(--icon-fill);
+    }
+    .icon-sun, .icon-moon { display: none; }
+    body:not(.light-mode) .icon-sun { display: block; } /* Show sun in dark mode */
+    body.light-mode .icon-moon { display: block; } /* Show moon in light mode */
+
+
     section {
       padding: 4rem 2rem;
       max-width: 900px;
       margin: auto;
-      position: relative; /* Ensure section content is above particles */
+      position: relative;
       z-index: 1;
-      background-color: var(--bg); /* Sections need their own bg to obscure particles directly behind text for readability */
+      background-color: var(--bg);
     }
     .section-title {
       font-size: 2rem;
-      margin-bottom: 1.5rem; /* Increased margin */
+      margin-bottom: 1.5rem;
       border-left: 4px solid var(--accent);
-      padding-left: 0.75rem; /* Increased padding */
+      padding-left: 0.75rem;
       font-weight: 800;
     }
-    .skills, .projects, .experience { display: grid; gap: 1.5rem; /* Increased gap */ }
-    /* Grid layout for skills for better responsiveness */
+    .skills, .projects, .experience { display: grid; gap: 1.5rem; }
     .skills {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
@@ -106,7 +122,10 @@
       padding: 1.5rem;
       border-radius: 0.75rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Softer shadow */
+    }
+    .light-mode .card {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.07); /* Slightly different shadow for light mode */
     }
     .card:hover {
       transform: translateY(-5px);
@@ -115,39 +134,47 @@
     .card h3 {
         color: var(--accent);
         margin-bottom: 0.5rem;
+        font-size: 1.25rem; /* Slightly larger card titles */
+    }
+    .card p em { /* For dates in experience */
+        display: block;
+        margin-top: 0.75rem;
+        font-size: 0.9rem;
+        color: var(--muted-text);
     }
     .contact a, .resume-btn {
       display: inline-block;
-      margin: 0.5rem 1rem 0.5rem 0; /* Added top/bottom margin for better spacing on wrap */
+      margin: 0.5rem 1rem 0.5rem 0;
       color: var(--accent);
       text-decoration: none;
       font-weight: 600;
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--accent);
+      padding: 0.6rem 1.2rem; /* Slightly larger padding */
+      border: 1.5px solid var(--accent); /* Slightly thicker border */
       border-radius: 6px;
       transition: background-color 0.2s, color 0.2s;
     }
     .contact a:hover, .resume-btn:hover {
         background-color: var(--accent);
-        color: var(--bg); /* Invert colors for button text */
+        color: var(--card-bg); /* Text color that contrasts with accent */
     }
-    .projects .card a { /* Specific styling for GitHub link in project card */
+    .projects .card a {
         color: var(--link-green);
-        padding: 0; /* Reset padding from general contact links */
+        padding: 0;
         border: none;
         text-decoration: underline;
+        font-weight: normal; /* Normal weight for these links */
     }
     .projects .card a:hover {
-        background-color: transparent; /* No background change */
-        color: var(--text); /* Brighter on hover */
+        background-color: transparent;
+        color: var(--text);
     }
     footer {
       text-align: center;
       padding: 2rem;
       font-size: 0.9rem;
       color: var(--muted-text);
-      background: var(--card-bg); /* Consistent with card backgrounds */
-      position: relative; /* Ensure footer content is above particles */
+      background: var(--card-bg);
+      position: relative;
       z-index: 1;
     }
   </style>
@@ -155,19 +182,24 @@
 <body>
   <div id="tsparticles"></div>
 
-  <header>
-    <div id="custom-greeting"></div>
-    <h1 data-aos="fade-down">Shiv Shankar Sah</h1>
-    <p data-aos="fade-up">System Engineer | Cloud Enthusiast | IT Support Specialist</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-      <button id="toggle-theme">Toggle Theme</button>
-    </nav>
-  </header>
+  <div class="header-container">
+    <button id="theme-toggle-button" aria-label="Toggle theme">
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3zm0-7v4h-1V2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" opacity=".3"/><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36A7.004 7.004 0 0012 5c-1.77 0-3.37.66-4.57 1.73A8.997 8.997 0 0112 3zm0-2C6.48 1 1 5.48 1 12s5.48 11 11 11 11-5.48 11-11S17.52 1 12 1zm-1 5V2h2v4h-2zm0 14v-4h2v4h-2zM4.22 5.64l2.83 2.83L5.64 9.88 2.81 7.05l1.41-1.41zm12.73 12.73l-2.83-2.83 1.41-1.41 2.83 2.83-1.41 1.41zM23 11v2h-4v-2h4zm-19 0v2H0v-2h4zm14.36.22l-2.83-2.83-1.41 1.41 2.83 2.83 1.41-1.41zm-12.73 0l2.83-2.83 1.41 1.41-2.83 2.83-1.41-1.41z"/></svg>
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.37.14A12.022 12.022 0 0012 0C5.48 0 0 5.48 0 12s5.48 12 12 12c.34 0 .68-.02 1.01-.05C10.1 23.31 8 20.21 8 16.68 8 11.32 12.87 7.22 18.11 7.5c3.39.18 5.96 2.82 6.7 6.14.21 1.09.33 2.23.33 3.36 0 .09 0 .19-.01.28-.74-3.45-3.58-6.19-7.02-6.73C14.77 16.43 12 14.04 12 10.68c0-2.9 1.75-5.52 4.37-6.57-.1-.02-.19-.05-.29-.07a11.97 11.97 0 00-3.71-3.9z" opacity=".3"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.34 0 .67-.02 1-.05-2.86-.96-5-3.56-5-6.63 0-3.81 3.06-6.93 6.84-6.93.62 0 1.22.08 1.79.23C16.02 5.22 13.19 2.98 10 .37A9.894 9.894 0 0012 2zm7.89 8.5c-5.24-.28-10.11 3.82-10.11 9.18 0 3.53 2.1 6.63 5.12 7.28.33.03.67.05 1 .05 5.52 0 10-4.48 10-10 0-1.13-.12-2.27-.33-3.36-.74-3.32-3.31-5.96-6.7-6.14z"/></svg>
+    </button>
+    <header>
+      <div id="custom-greeting"></div>
+      <h1 data-aos="fade-down">Shiv Shankar Sah</h1>
+      <p data-aos="fade-up">System Engineer | Cloud Enthusiast | IT Support Specialist</p>
+      <nav data-aos="fade-up" data-aos-delay="100">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+  </div>
 
   <section id="about" data-aos="fade-up">
     <h2 class="section-title">About Me</h2>
@@ -202,7 +234,6 @@
         <p>Personal portfolio website built with HTML, CSS, and JavaScript, featuring interactive elements like particle backgrounds (tsParticles) and theme toggling. Hosted on GitHub Pages. Includes analytics for user engagement tracking.</p>
         <a href="https://github.com/razan-sah/Website" target="_blank">View on GitHub</a>
       </div>
-      <!-- Add more project cards here -->
     </div>
   </section>
 
@@ -214,12 +245,13 @@
         <p>Provide L2/L3 IT support, resolving escalated technical tickets for diverse clients. Manage and maintain client infrastructures including servers, networks, and cloud services (Microsoft 365, Azure). Implement and manage backup solutions, server patching, and endpoint security tools (CrowdStrike, Datto SAAS Defense, Forcepoint). Key contributor to documentation and process improvement.</p>
         <p><em>Jan 2023 – Present</em></p>
       </div>
-      {/* Add previous experience if any */}
-      {/* <div class="card">
-        <h3>IT Support Specialist – [Previous Company]</h3>
-        <p>Description of responsibilities and achievements.</p>
-        <p><em>[Start Date] – [End Date]</em></p>
-      </div> */}
+      <!-- Example for adding previous experience:
+      <div class="card">
+        <h3>IT Support Specialist – Previous Company Name</h3>
+        <p>Brief description of your responsibilities and key achievements. Focus on quantifiable results where possible.</p>
+        <p><em>Month Year – Month Year</em></p>
+      </div>
+      -->
     </div>
   </section>
 
@@ -229,43 +261,53 @@
       <a href="mailto:rajansah4u@gmail.com">Email Me</a>
       <a href="https://www.linkedin.com/in/razansah" target="_blank">LinkedIn</a>
       <a href="https://github.com/razan-sah" target="_blank">GitHub</a>
-      <a class="resume-btn" href="resume.pdf" download>Download Resume</a> {/* Assuming resume.pdf is in the root */}
+      <a class="resume-btn" href="resume.pdf" download>Download Resume</a>
     </div>
   </section>
 
   <footer>
-    © <span id="current-year">2024</span> Shiv Shankar Sah. All rights reserved.
+    © <span id="current-year"></span> Shiv Shankar Sah. All rights reserved.
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script> <!-- Updated tsParticles version -->
 
   <script>
     // Initialize AOS (Animate On Scroll)
     AOS.init({
-        duration: 800, // values from 0 to 3000, with step 50ms
-        once: true, // whether animation should happen only once - while scrolling down
+        duration: 800,
+        once: true,
     });
 
     // Theme Toggle
-    const themeToggleButton = document.getElementById('toggle-theme');
+    const themeToggleButton = document.getElementById('theme-toggle-button');
     const body = document.body;
 
+    // Function to set theme (called on load and on toggle)
+    function setTheme(themeName) {
+        localStorage.setItem('theme', themeName);
+        if (themeName === 'light-mode') {
+            body.classList.add('light-mode');
+        } else {
+            body.classList.remove('light-mode');
+        }
+    }
+
     themeToggleButton.addEventListener('click', () => {
-      body.classList.toggle('light-mode');
-      // Optional: If you want to store theme preference
       if (body.classList.contains('light-mode')) {
-        localStorage.setItem('theme', 'light-mode');
+        setTheme('dark-mode');
       } else {
-        localStorage.setItem('theme', 'dark-mode');
+        setTheme('light-mode');
       }
-      // Note: Particles won't auto-update theme unless re-initialized or options updated
+      // Note: Particles won't auto-update theme colors unless re-initialized with new options
     });
 
-    // Optional: Load saved theme preference
+    // Load saved theme preference or default to dark
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light-mode') {
-      body.classList.add('light-mode');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else {
+        setTheme('dark-mode'); // Default to dark mode
     }
 
     // Dynamic Year for Footer
@@ -278,13 +320,11 @@
       if (greetingElement) {
         const urlParams = new URLSearchParams(window.location.search);
         const character = urlParams.get('character');
-        let greetingMessage = "Welcome! Exploring Shiv's Digital Space."; // Default greeting
+        let greetingMessage = "Welcome! Exploring Shiv's Digital Space.";
 
         if (character) {
-          const safeCharacterName = character.replace(/[^a-zA-Z0-9 ]/g, ""); // Basic sanitization
+          const safeCharacterName = character.replace(/[^a-zA-Z0-9 ]/g, "");
           greetingMessage = `Hello, ${safeCharacterName}! You're now viewing Shiv's portfolio.`;
-
-          // Example of more specific messages:
           switch (character.toLowerCase()) {
             case 'recruiter':
               greetingMessage = `Welcome, Recruiter! Discover Shiv's qualifications and projects.`;
@@ -308,60 +348,44 @@
         fpsLimit: 60,
         interactivity: {
           events: {
-            onHover: {
-              enable: true,
-              mode: "grab",
-            },
-            onClick: {
-              enable: true,
-              mode: "push",
-            },
+            onHover: { enable: true, mode: "grab" },
+            onClick: { enable: true, mode: "push" },
             resize: true,
           },
           modes: {
             grab: { distance: 150, line_linked: { opacity: 0.7 } },
-            bubble: { distance: 250, size: 20, duration: 2, opacity: 0.8 },
-            repulse: { distance: 100, duration: 0.4 },
-            push: { particles_nb: 4 },
-            remove: { particles_nb: 2 },
+            push: { quantity: 4 },
           },
         },
         particles: {
-          number: { value: 60, density: { enable: true, value_area: 800 } },
-          color: { value: ["#38bdf8", "#5eead4", "#818cf8"] }, // Sky, Teal, Indigo accents
+          number: { value: 50, density: { enable: true, value_area: 800 } }, // Reduced for subtlety
+          color: { value: ["#38bdf8", "#5eead4", "#818cf8"] },
           shape: { type: "circle" },
           opacity: {
-            value: {min: 0.3, max: 0.7}, // Opacity range
-            random: true,
-            animation: { enable: true, speed: 0.5, minimumValue: 0.1, sync: false },
+            value: {min: 0.1, max: 0.5}, // More subtle opacity
+            animation: { enable: true, speed: 0.4, minimumValue: 0.05, sync: false },
           },
           size: {
-            value: { min: 1, max: 5 },
-            random: true,
+            value: { min: 1, max: 4 }, // Smaller particles
             animation: { enable: true, speed: 2, minimumValue: 0.1, sync: false },
           },
           links: {
             enable: true,
-            distance: 130,
-            color: "rgba(148, 163, 184, 0.3)", // --muted-text with alpha
-            opacity: 0.3,
+            distance: 120, // Slightly shorter links
+            color: "rgba(148, 163, 184, 0.2)", // More transparent links
+            opacity: 0.2,
             width: 1,
           },
           move: {
             enable: true,
-            speed: 1,
+            speed: 0.8, // Slower movement
             direction: "none",
             random: true,
             straight: false,
-            outModes: { default: "out" }, // Using outModes for newer tsParticles versions
+            outModes: { default: "out" },
           },
         },
         detectRetina: true,
-        // The particle background will be transparent and show the body's background.
-        // If you want a specific background for the canvas itself:
-        // background: {
-        //   color: "transparent", // or a specific color like '#0f172a'
-        // }
       });
     });
   </script>
