@@ -8,33 +8,155 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+      position: relative; /* Needed for z-index context if particles were not fixed */
+    }
     :root {
-      --bg: #0f172a;
-      --text: #f1f5f9;
+      --bg: #0f172a;  /* Dark blue slate */
+      --text: #f1f5f9; /* Light slate */
+      --card-bg: #1e293b; /* Darker blue slate for cards */
+      --accent: #38bdf8; /* Sky blue */
+      --muted-text: #94a3b8; /* Medium slate */
+      --link-green: #90ee90; /* Light green for GitHub links */
     }
     .light-mode {
-      --bg: #f8fafc;
-      --text: #0f172a;
+      --bg: #f8fafc; /* Very light gray / Almost white */
+      --text: #0f172a; /* Dark blue slate (text on light) */
+      --card-bg: #e2e8f0; /* Lighter slate for cards in light mode */
+      --accent: #0ea5e9; /* Slightly darker sky blue for light mode contrast */
+      --muted-text: #475569; /* Darker muted text for light mode */
+      --link-green: #22c55e; /* Darker green for light mode */
     }
-    header { background: #1e293b; padding: 2rem; text-align: center; }
+
+    /* tsParticles container styling */
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1; /* Behind all other content */
+      /* The background of the particles canvas will be transparent,
+         so it inherits the body's background or you can set one here if needed */
+    }
+
+    header {
+      background: rgba(30, 41, 59, 0.8); /* Slightly transparent header on dark */
+      padding: 2rem;
+      text-align: center;
+      position: relative; /* Ensure header content is above particles */
+      z-index: 1;
+    }
+    .light-mode header {
+        background: rgba(226, 232, 240, 0.8); /* Slightly transparent header on light */
+    }
     header h1 { font-size: 2.5rem; font-weight: 800; }
-    header p { font-size: 1.2rem; color: #94a3b8; }
+    header p { font-size: 1.2rem; color: var(--muted-text); }
+    #custom-greeting {
+        font-size: 1.1rem;
+        color: var(--muted-text);
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
     nav { margin-top: 1rem; }
-    nav a { color: #38bdf8; margin: 0 1rem; text-decoration: none; font-weight: 600; }
-    #toggle-theme { background: none; border: 1px solid #38bdf8; padding: 0.3rem 1rem; color: #38bdf8; cursor: pointer; border-radius: 6px; margin-left: 1rem; }
-    section { padding: 4rem 2rem; max-width: 900px; margin: auto; }
-    .section-title { font-size: 2rem; margin-bottom: 1rem; border-left: 4px solid #38bdf8; padding-left: 0.5rem; }
-    .skills, .projects, .experience { display: grid; gap: 1rem; }
-    .card { background: #1e293b; padding: 1.5rem; border-radius: 0.75rem; transition: transform 0.3s ease; }
-    .card:hover { transform: translateY(-5px); }
-    .contact a, .resume-btn { display: inline-block; margin-right: 1rem; color: #38bdf8; text-decoration: none; font-weight: 600; }
-    .projects .card a { color: #90ee90; } /* Light green for GitHub link */
-    footer { text-align: center; padding: 2rem; font-size: 0.9rem; color: #94a3b8; background: #1e293b; }
+    nav a { color: var(--accent); margin: 0 1rem; text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    nav a:hover { color: var(--text); } /* Brighter on hover */
+    #toggle-theme {
+      background: none;
+      border: 1px solid var(--accent);
+      padding: 0.3rem 1rem;
+      color: var(--accent);
+      cursor: pointer;
+      border-radius: 6px;
+      margin-left: 1rem;
+      font-weight: 600;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    #toggle-theme:hover {
+        background-color: var(--accent);
+        color: var(--bg); /* Invert colors for button text */
+    }
+    section {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: auto;
+      position: relative; /* Ensure section content is above particles */
+      z-index: 1;
+      background-color: var(--bg); /* Sections need their own bg to obscure particles directly behind text for readability */
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem; /* Increased margin */
+      border-left: 4px solid var(--accent);
+      padding-left: 0.75rem; /* Increased padding */
+      font-weight: 800;
+    }
+    .skills, .projects, .experience { display: grid; gap: 1.5rem; /* Increased gap */ }
+    /* Grid layout for skills for better responsiveness */
+    .skills {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+    }
+    .contact a, .resume-btn {
+      display: inline-block;
+      margin: 0.5rem 1rem 0.5rem 0; /* Added top/bottom margin for better spacing on wrap */
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .contact a:hover, .resume-btn:hover {
+        background-color: var(--accent);
+        color: var(--bg); /* Invert colors for button text */
+    }
+    .projects .card a { /* Specific styling for GitHub link in project card */
+        color: var(--link-green);
+        padding: 0; /* Reset padding from general contact links */
+        border: none;
+        text-decoration: underline;
+    }
+    .projects .card a:hover {
+        background-color: transparent; /* No background change */
+        color: var(--text); /* Brighter on hover */
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: var(--muted-text);
+      background: var(--card-bg); /* Consistent with card backgrounds */
+      position: relative; /* Ensure footer content is above particles */
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
+  <div id="tsparticles"></div>
+
   <header>
+    <div id="custom-greeting"></div>
     <h1 data-aos="fade-down">Shiv Shankar Sah</h1>
     <p data-aos="fade-up">System Engineer | Cloud Enthusiast | IT Support Specialist</p>
     <nav>
@@ -56,11 +178,14 @@
     <h2 class="section-title">Skills</h2>
     <div class="skills">
       <div class="card">Microsoft 365, Azure, Exchange, Intune</div>
-      <div class="card">Active Directory, Entra, SharePoint</div>
-      <div class="card">Windows, macOS, Linux</div>
-      <div class="card">Python, PowerShell Scripting</div>
-      <div class="card">Datto RMM, Autotask, Jira</div>
+      <div class="card">Active Directory, Entra ID, SharePoint</div>
+      <div class="card">Windows Server & Desktop OS</div>
+      <div class="card">macOS, Linux Fundamentals</div>
+      <div class="card">Python, PowerShell Scripting & Automation</div>
+      <div class="card">Datto RMM, Autotask, Jira, Confluence</div>
       <div class="card">CrowdStrike, Mimecast, MDM Tools</div>
+      <div class="card">Networking (DNS, DHCP, VPN, VLANs)</div>
+      <div class="card">Virtualization (Hyper-V, VMware)</div>
     </div>
   </section>
 
@@ -68,10 +193,16 @@
     <h2 class="section-title">Projects</h2>
     <div class="projects">
       <div class="card">
-        <h3>Password Expiry Notifier</h3>
-        <p>A C# desktop app that logs into Microsoft 365, finds users with soon-to-expire passwords, sends reminder emails, logs actions, and runs daily via system tray.</p>
+        <h3>Password Expiry Notifier (Desktop App)</h3>
+        <p>A C# WPF desktop application that uses MSAL for Microsoft 365 authentication. It identifies users with soon-to-expire passwords, sends customized email reminders via Microsoft Graph API, logs all actions, and can be configured for scheduled checks.</p>
         <a href="https://github.com/razan-sah/password-expiry-notifier" target="_blank">View on GitHub</a>
       </div>
+      <div class="card">
+        <h3>Portfolio Website (This Site!)</h3>
+        <p>Personal portfolio website built with HTML, CSS, and JavaScript, featuring interactive elements like particle backgrounds (tsParticles) and theme toggling. Hosted on GitHub Pages. Includes analytics for user engagement tracking.</p>
+        <a href="https://github.com/razan-sah/Website" target="_blank">View on GitHub</a>
+      </div>
+      <!-- Add more project cards here -->
     </div>
   </section>
 
@@ -80,9 +211,15 @@
     <div class="experience">
       <div class="card">
         <h3>System Engineer – Bluescale</h3>
-        <p>Resolving escalated tickets, managing backups, patching servers, maintaining documentation, and investigating network performance. Skilled in AD, DNS, DHCP, VPN, and endpoint security tools like CrowdStrike, Datto SAAS Defense, and Forcepoint.</p>
+        <p>Provide L2/L3 IT support, resolving escalated technical tickets for diverse clients. Manage and maintain client infrastructures including servers, networks, and cloud services (Microsoft 365, Azure). Implement and manage backup solutions, server patching, and endpoint security tools (CrowdStrike, Datto SAAS Defense, Forcepoint). Key contributor to documentation and process improvement.</p>
         <p><em>Jan 2023 – Present</em></p>
       </div>
+      {/* Add previous experience if any */}
+      {/* <div class="card">
+        <h3>IT Support Specialist – [Previous Company]</h3>
+        <p>Description of responsibilities and achievements.</p>
+        <p><em>[Start Date] – [End Date]</em></p>
+      </div> */}
     </div>
   </section>
 
@@ -92,19 +229,140 @@
       <a href="mailto:rajansah4u@gmail.com">Email Me</a>
       <a href="https://www.linkedin.com/in/razansah" target="_blank">LinkedIn</a>
       <a href="https://github.com/razan-sah" target="_blank">GitHub</a>
-      <a class="resume-btn" href="resume.pdf" download>Download Resume</a>
+      <a class="resume-btn" href="resume.pdf" download>Download Resume</a> {/* Assuming resume.pdf is in the root */}
     </div>
   </section>
 
   <footer>
-    &copy; 2025 Shiv Shankar Sah. All rights reserved.
+    © <span id="current-year">2024</span> Shiv Shankar Sah. All rights reserved.
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+
   <script>
-    AOS.init();
-    document.getElementById('toggle-theme').addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
+    // Initialize AOS (Animate On Scroll)
+    AOS.init({
+        duration: 800, // values from 0 to 3000, with step 50ms
+        once: true, // whether animation should happen only once - while scrolling down
+    });
+
+    // Theme Toggle
+    const themeToggleButton = document.getElementById('toggle-theme');
+    const body = document.body;
+
+    themeToggleButton.addEventListener('click', () => {
+      body.classList.toggle('light-mode');
+      // Optional: If you want to store theme preference
+      if (body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light-mode');
+      } else {
+        localStorage.setItem('theme', 'dark-mode');
+      }
+      // Note: Particles won't auto-update theme unless re-initialized or options updated
+    });
+
+    // Optional: Load saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light-mode') {
+      body.classList.add('light-mode');
+    }
+
+    // Dynamic Year for Footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // DOMContentLoaded to ensure elements are ready
+    document.addEventListener('DOMContentLoaded', (event) => {
+      // Custom Greeting Logic
+      const greetingElement = document.getElementById('custom-greeting');
+      if (greetingElement) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const character = urlParams.get('character');
+        let greetingMessage = "Welcome! Exploring Shiv's Digital Space."; // Default greeting
+
+        if (character) {
+          const safeCharacterName = character.replace(/[^a-zA-Z0-9 ]/g, ""); // Basic sanitization
+          greetingMessage = `Hello, ${safeCharacterName}! You're now viewing Shiv's portfolio.`;
+
+          // Example of more specific messages:
+          switch (character.toLowerCase()) {
+            case 'recruiter':
+              greetingMessage = `Welcome, Recruiter! Discover Shiv's qualifications and projects.`;
+              break;
+            case 'developer':
+              greetingMessage = `Hey Developer! Check out Shiv's tech skills and contributions.`;
+              break;
+            case 'curious mind':
+              greetingMessage = `Greetings, Curious Mind! Delve into Shiv's world of technology.`;
+              break;
+            case 'adventurer':
+              greetingMessage = `Hail, Adventurer! You're about to explore Shiv's tech journey.`;
+              break;
+          }
+        }
+        greetingElement.textContent = greetingMessage;
+      }
+
+      // tsParticles Initialization
+      tsParticles.load("tsparticles", {
+        fpsLimit: 60,
+        interactivity: {
+          events: {
+            onHover: {
+              enable: true,
+              mode: "grab",
+            },
+            onClick: {
+              enable: true,
+              mode: "push",
+            },
+            resize: true,
+          },
+          modes: {
+            grab: { distance: 150, line_linked: { opacity: 0.7 } },
+            bubble: { distance: 250, size: 20, duration: 2, opacity: 0.8 },
+            repulse: { distance: 100, duration: 0.4 },
+            push: { particles_nb: 4 },
+            remove: { particles_nb: 2 },
+          },
+        },
+        particles: {
+          number: { value: 60, density: { enable: true, value_area: 800 } },
+          color: { value: ["#38bdf8", "#5eead4", "#818cf8"] }, // Sky, Teal, Indigo accents
+          shape: { type: "circle" },
+          opacity: {
+            value: {min: 0.3, max: 0.7}, // Opacity range
+            random: true,
+            animation: { enable: true, speed: 0.5, minimumValue: 0.1, sync: false },
+          },
+          size: {
+            value: { min: 1, max: 5 },
+            random: true,
+            animation: { enable: true, speed: 2, minimumValue: 0.1, sync: false },
+          },
+          links: {
+            enable: true,
+            distance: 130,
+            color: "rgba(148, 163, 184, 0.3)", // --muted-text with alpha
+            opacity: 0.3,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            random: true,
+            straight: false,
+            outModes: { default: "out" }, // Using outModes for newer tsParticles versions
+          },
+        },
+        detectRetina: true,
+        // The particle background will be transparent and show the body's background.
+        // If you want a specific background for the canvas itself:
+        // background: {
+        //   color: "transparent", // or a specific color like '#0f172a'
+        // }
+      });
     });
   </script>
 </body>
