@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shiv Shankar Sah | System Engineer Portfolio</title>
+  <meta name="description" content="Shiv Shankar Sah - System Engineer and Cloud Enthusiast portfolio. Explore skills, projects, and experience in IT support, M365, Azure, and automation.">
+  <meta name="keywords" content="Shiv Shankar Sah, System Engineer, IT Support, Microsoft 365, Azure, PowerShell, Python, Cloud Portfolio">
+  <meta property="og:title" content="Shiv Shankar Sah | Portfolio">
+  <meta property="og:description" content="System Engineer specializing in cloud technologies and IT automation.">
+  <!-- <meta property="og:image" content="YOUR_FULL_URL_TO_A_PREVIEW_IMAGE.jpg">  Update with actual URL -->
+  <!-- <meta property="og:url" content="https://razan-sah.github.io/Website/"> Update with your live site URL -->
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- <link rel="icon" href="favicon.png" type="image/png"> Update with your favicon -->
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
@@ -13,7 +22,7 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      transition: background-color 0.3s, color 0.3s; /* Specific transitions */
+      transition: background-color 0.3s, color 0.3s;
       position: relative;
     }
     :root {
@@ -23,7 +32,9 @@
       --accent: #38bdf8;
       --muted-text: #94a3b8;
       --link-green: #90ee90;
-      --icon-fill: #f1f5f9; /* For SVG icons in dark mode */
+      --icon-fill: #f1f5f9;
+      --tooltip-bg: #333;
+      --tooltip-text: #fff;
     }
     .light-mode {
       --bg: #f8fafc;
@@ -32,7 +43,9 @@
       --accent: #0ea5e9;
       --muted-text: #475569;
       --link-green: #22c55e;
-      --icon-fill: #0f172a; /* For SVG icons in light mode */
+      --icon-fill: #0f172a;
+      --tooltip-bg: #eee;
+      --tooltip-text: #333;
     }
 
     #tsparticles {
@@ -44,37 +57,37 @@
       z-index: -1;
     }
 
-    .header-container { /* New wrapper for header content + toggle */
-        position: relative; /* For positioning the toggle button */
-        background: rgba(30, 41, 59, 0.85); /* Dark mode header bg */
-        padding: 1.5rem 2rem; /* Adjusted padding */
-        z-index: 10; /* Above particles and other content */
+    .header-container {
+        position: relative;
+        background: rgba(30, 41, 59, 0.85);
+        padding: 1.5rem 2rem;
+        z-index: 10;
     }
     .light-mode .header-container {
-        background: rgba(241, 245, 249, 0.9); /* Light mode header bg (more opaque) */
+        background: rgba(241, 245, 249, 0.9);
     }
 
     header {
       text-align: center;
-      max-width: 900px; /* Max width for header content */
-      margin: 0 auto; /* Center header content */
+      max-width: 900px;
+      margin: 0 auto;
     }
-    header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.25rem; }
-    header p { font-size: 1.2rem; color: var(--muted-text); }
+    header h1 { font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 800; margin-bottom: 0.25rem; }
+    header p { font-size: clamp(1rem, 3vw, 1.2rem); color: var(--muted-text); }
     #custom-greeting {
-        font-size: 1.1rem;
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
         color: var(--muted-text);
         margin-bottom: 0.75rem;
         font-weight: 600;
     }
     nav { margin-top: 1.5rem; }
-    nav a { color: var(--accent); margin: 0 0.75rem; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-    nav a:hover { color: var(--text); }
+    nav a { color: var(--accent); margin: 0 0.5rem; text-decoration: none; font-weight: 600; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 4px; }
+    nav a:hover { color: var(--text); background-color: rgba(128,128,128,0.1); }
 
     #theme-toggle-button {
         position: absolute;
-        top: 1.5rem; /* Adjust as needed */
-        right: 2rem; /* Adjust as needed */
+        top: 1.5rem;
+        right: 1.5rem; /* Adjusted for potentially smaller screens */
         background: none;
         border: none;
         cursor: pointer;
@@ -83,23 +96,53 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        transition: background-color 0.2s;
+        transition: background-color 0.3s, transform 0.3s ease;
+        outline: none;
+        z-index: 20;
     }
     #theme-toggle-button:hover {
         background-color: rgba(128, 128, 128, 0.2);
+        transform: rotate(20deg) scale(1.1);
+    }
+    #theme-toggle-button:active {
+        transform: scale(0.95);
     }
     #theme-toggle-button svg {
-        width: 24px;
-        height: 24px;
+        width: 26px;
+        height: 26px;
         fill: var(--icon-fill);
+        transition: transform 0.3s ease;
+    }
+    #theme-toggle-button::after { /* Tooltip */
+        content: 'Change Theme';
+        position: absolute;
+        bottom: -2.5em;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--tooltip-bg);
+        color: var(--tooltip-text);
+        padding: 0.4em 0.8em;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s 0.1s ease, visibility 0.2s 0.1s ease; /* Added slight delay */
+        z-index: 100;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    #theme-toggle-button:hover::after {
+        opacity: 1;
+        visibility: visible;
     }
     .icon-sun, .icon-moon { display: none; }
-    body:not(.light-mode) .icon-sun { display: block; } /* Show sun in dark mode */
-    body.light-mode .icon-moon { display: block; } /* Show moon in light mode */
+    body:not(.light-mode) .icon-sun { display: block; }
+    body.light-mode .icon-moon { display: block; }
 
 
     section {
-      padding: 4rem 2rem;
+      padding: 3rem 1.5rem; /* Adjusted padding */
       max-width: 900px;
       margin: auto;
       position: relative;
@@ -107,7 +150,7 @@
       background-color: var(--bg);
     }
     .section-title {
-      font-size: 2rem;
+      font-size: clamp(1.8rem, 4vw, 2.2rem);
       margin-bottom: 1.5rem;
       border-left: 4px solid var(--accent);
       padding-left: 0.75rem;
@@ -115,54 +158,66 @@
     }
     .skills, .projects, .experience { display: grid; gap: 1.5rem; }
     .skills {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Slightly larger min card width */
     }
     .card {
       background: var(--card-bg);
       padding: 1.5rem;
-      border-radius: 0.75rem;
+      border-radius: 8px; /* Consistent rounding */
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Softer shadow */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
     .light-mode .card {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.07); /* Slightly different shadow for light mode */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.07);
     }
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      transform: translateY(-6px); /* More pronounced hover */
+      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
     }
     .card h3 {
         color: var(--accent);
         margin-bottom: 0.5rem;
-        font-size: 1.25rem; /* Slightly larger card titles */
+        font-size: 1.25rem;
     }
-    .card p em { /* For dates in experience */
+    .card p em {
         display: block;
         margin-top: 0.75rem;
         font-size: 0.9rem;
         color: var(--muted-text);
     }
-    .contact a, .resume-btn {
-      display: inline-block;
-      margin: 0.5rem 1rem 0.5rem 0;
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6em;
+      margin: 0.5rem 0.5rem 0.5rem 0;
       color: var(--accent);
       text-decoration: none;
       font-weight: 600;
-      padding: 0.6rem 1.2rem; /* Slightly larger padding */
-      border: 1.5px solid var(--accent); /* Slightly thicker border */
+      padding: 0.7rem 1.3rem; /* Slightly increased padding */
+      border: 1.5px solid var(--accent);
       border-radius: 6px;
-      transition: background-color 0.2s, color 0.2s;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s ease;
     }
-    .contact a:hover, .resume-btn:hover {
+    .contact-link:hover {
         background-color: var(--accent);
-        color: var(--card-bg); /* Text color that contrasts with accent */
+        color: var(--card-bg);
+        transform: translateY(-2px); /* Slight lift on hover */
+    }
+    .contact-link:hover .contact-icon {
+        fill: var(--card-bg);
+    }
+    .contact-icon {
+      fill: currentColor;
+      width: 20px;
+      height: 20px;
+      transition: fill 0.2s;
     }
     .projects .card a {
         color: var(--link-green);
         padding: 0;
         border: none;
         text-decoration: underline;
-        font-weight: normal; /* Normal weight for these links */
+        font-weight: normal;
     }
     .projects .card a:hover {
         background-color: transparent;
@@ -177,6 +232,27 @@
       position: relative;
       z-index: 1;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .header-container { padding: 1rem 1.5rem; }
+        #theme-toggle-button { top: 1rem; right: 1rem; }
+        header h1 { font-size: 2rem; }
+        header p { font-size: 1rem; }
+        nav a { margin: 0 0.4rem; font-size: 0.9rem; }
+        section { padding: 2.5rem 1rem; }
+        .section-title { font-size: 1.6rem; }
+        .contact-link { padding: 0.6rem 1rem; font-size: 0.9rem; }
+    }
+    @media (max-width: 480px) {
+        nav { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; }
+        nav a { margin: 0.2rem 0; }
+        .skills { grid-template-columns: 1fr; } /* Stack skills on very small screens */
+        .contact { display: flex; flex-direction: column; align-items: stretch; }
+        .contact-link { width: 100%; text-align: center; margin: 0.3rem 0; justify-content: center;}
+
+    }
+
   </style>
 </head>
 <body>
@@ -201,89 +277,97 @@
     </header>
   </div>
 
-  <section id="about" data-aos="fade-up">
-    <h2 class="section-title">About Me</h2>
-    <p>I’m a dedicated System Engineer with strong experience in IT support, Microsoft 365, Azure, and automation. Known for my troubleshooting skills and documentation habits, I bring reliability and clarity into every solution. Currently excelling at Bluescale, I'm focused on transitioning into deeper cloud roles with a strong infrastructure and cybersecurity mindset.</p>
-  </section>
+  <main>
+    <section id="about" data-aos="fade-up" data-aos-duration="800">
+      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">About Me</h2>
+      <p data-aos="fade-up" data-aos-delay="200">I’m a dedicated System Engineer with strong experience in IT support, Microsoft 365, Azure, and automation. Known for my troubleshooting skills and documentation habits, I bring reliability and clarity into every solution. Currently excelling at Bluescale, I'm focused on transitioning into deeper cloud roles with a strong infrastructure and cybersecurity mindset.</p>
+    </section>
 
-  <section id="skills" data-aos="fade-up">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills">
-      <div class="card">Microsoft 365, Azure, Exchange, Intune</div>
-      <div class="card">Active Directory, Entra ID, SharePoint</div>
-      <div class="card">Windows Server & Desktop OS</div>
-      <div class="card">macOS, Linux Fundamentals</div>
-      <div class="card">Python, PowerShell Scripting & Automation</div>
-      <div class="card">Datto RMM, Autotask, Jira, Confluence</div>
-      <div class="card">CrowdStrike, Mimecast, MDM Tools</div>
-      <div class="card">Networking (DNS, DHCP, VPN, VLANs)</div>
-      <div class="card">Virtualization (Hyper-V, VMware)</div>
-    </div>
-  </section>
+    <section id="skills" data-aos="zoom-in-up" data-aos-duration="700">
+      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Skills</h2>
+      <div class="skills">
+        <div class="card" data-aos="fade-up" data-aos-delay="100">Microsoft 365, Azure, Exchange, Intune</div>
+        <div class="card" data-aos="fade-up" data-aos-delay="150">Active Directory, Entra ID, SharePoint</div>
+        <div class="card" data-aos="fade-up" data-aos-delay="200">Windows Server & Desktop OS</div>
+        <div class="card" data-aos="fade-up" data-aos-delay="250">macOS, Linux Fundamentals</div>
+        <div class="card" data-aos="fade-up" data-aos-delay="300">Python, PowerShell Scripting & Automation</div>
+        <div class="card" data-aos="fade-up" data-aos-delay="350">Datto RMM, Autotask, Jira, Confluence</div>
+        <div class="card" data-aos="fade-up" data-aos-delay="400">CrowdStrike, Mimecast, MDM Tools</div>
+        <div class="card" data-aos="fade-up" data-aos-delay="450">Networking (DNS, DHCP, VPN, VLANs)</div>
+        <div class="card" data-aos="fade-up" data-aos-delay="500">Virtualization (Hyper-V, VMware)</div>
+      </div>
+    </section>
 
-  <section id="projects" data-aos="fade-up">
-    <h2 class="section-title">Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>Password Expiry Notifier (Desktop App)</h3>
-        <p>A C# WPF desktop application that uses MSAL for Microsoft 365 authentication. It identifies users with soon-to-expire passwords, sends customized email reminders via Microsoft Graph API, logs all actions, and can be configured for scheduled checks.</p>
-        <a href="https://github.com/razan-sah/password-expiry-notifier" target="_blank">View on GitHub</a>
+    <section id="projects" data-aos="slide-up" data-aos-duration="700" data-aos-easing="ease-in-out">
+      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Projects</h2>
+      <div class="projects">
+        <div class="card" data-aos="flip-left" data-aos-delay="200" data-aos-duration="900">
+          <h3>Password Expiry Notifier (Desktop App)</h3>
+          <p>A C# WPF desktop application that uses MSAL for Microsoft 365 authentication. It identifies users with soon-to-expire passwords, sends customized email reminders via Microsoft Graph API, logs all actions, and can be configured for scheduled checks.</p>
+          <a href="https://github.com/razan-sah/password-expiry-notifier" target="_blank">View on GitHub</a>
+        </div>
+        <div class="card" data-aos="flip-right" data-aos-delay="300" data-aos-duration="900">
+          <h3>Portfolio Website (This Site!)</h3>
+          <p>Personal portfolio website built with HTML, CSS, and JavaScript, featuring interactive elements like particle backgrounds (tsParticles) and theme toggling. Hosted on GitHub Pages. Includes analytics for user engagement tracking.</p>
+          <a href="https://github.com/razan-sah/Website" target="_blank">View on GitHub</a>
+        </div>
       </div>
-      <div class="card">
-        <h3>Portfolio Website (This Site!)</h3>
-        <p>Personal portfolio website built with HTML, CSS, and JavaScript, featuring interactive elements like particle backgrounds (tsParticles) and theme toggling. Hosted on GitHub Pages. Includes analytics for user engagement tracking.</p>
-        <a href="https://github.com/razan-sah/Website" target="_blank">View on GitHub</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="experience" data-aos="fade-up">
-    <h2 class="section-title">Experience</h2>
-    <div class="experience">
-      <div class="card">
-        <h3>System Engineer – Bluescale</h3>
-        <p>Provide L2/L3 IT support, resolving escalated technical tickets for diverse clients. Manage and maintain client infrastructures including servers, networks, and cloud services (Microsoft 365, Azure). Implement and manage backup solutions, server patching, and endpoint security tools (CrowdStrike, Datto SAAS Defense, Forcepoint). Key contributor to documentation and process improvement.</p>
-        <p><em>Jan 2023 – Present</em></p>
+    <section id="experience" data-aos="fade-left" data-aos-duration="800">
+      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Experience</h2>
+      <div class="experience">
+        <div class="card" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="700">
+          <h3>System Engineer – Bluescale</h3>
+          <p>Provide L2/L3 IT support, resolving escalated technical tickets for diverse clients. Manage and maintain client infrastructures including servers, networks, and cloud services (Microsoft 365, Azure). Implement and manage backup solutions, server patching, and endpoint security tools (CrowdStrike, Datto SAAS Defense, Forcepoint). Key contributor to documentation and process improvement.</p>
+          <p><em>Jan 2023 – Present</em></p>
+        </div>
       </div>
-      <!-- Example for adding previous experience:
-      <div class="card">
-        <h3>IT Support Specialist – Previous Company Name</h3>
-        <p>Brief description of your responsibilities and key achievements. Focus on quantifiable results where possible.</p>
-        <p><em>Month Year – Month Year</em></p>
-      </div>
-      -->
-    </div>
-  </section>
+    </section>
 
-  <section id="contact" data-aos="fade-up">
-    <h2 class="section-title">Contact</h2>
-    <div class="contact">
-      <a href="mailto:rajansah4u@gmail.com">Email Me</a>
-      <a href="https://www.linkedin.com/in/razansah" target="_blank">LinkedIn</a>
-      <a href="https://github.com/razan-sah" target="_blank">GitHub</a>
-      <a class="resume-btn" href="resume.pdf" download>Download Resume</a>
-    </div>
-  </section>
+    <section id="contact" data-aos="zoom-out" data-aos-duration="700">
+      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Contact</h2>
+      <div class="contact" data-aos="fade-up" data-aos-delay="200">
+        <a href="mailto:rajansah4u@gmail.com" class="contact-link">
+          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+          <span>Email Me</span>
+        </a>
+        <a href="https://www.linkedin.com/in/razansah" target="_blank" class="contact-link">
+          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-11.5 4H5.62v10H8.5V7zm-1.44 0a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88zM18.5 7H15.6c-1.21 0-2.08.6-2.46 1.79V7H10.5v10h2.88v-5.38c0-1.11.54-1.65 1.57-1.65s1.55.51 1.55 1.65V17H19.5V7z"/></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/razan-sah" target="_blank" class="contact-link">
+          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.3.8 1 .8 2V23c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <a class="contact-link resume-btn" href="resume.pdf" download>
+          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+          <span>Download Resume</span>
+        </a>
+      </div>
+    </section>
+  </main>
 
   <footer>
     © <span id="current-year"></span> Shiv Shankar Sah. All rights reserved.
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script> <!-- Updated tsParticles version -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
   <script>
     // Initialize AOS (Animate On Scroll)
     AOS.init({
         duration: 800,
         once: true,
+        offset: 120,
+        easing: 'ease-in-out',
     });
 
     // Theme Toggle
     const themeToggleButton = document.getElementById('theme-toggle-button');
     const body = document.body;
 
-    // Function to set theme (called on load and on toggle)
     function setTheme(themeName) {
         localStorage.setItem('theme', themeName);
         if (themeName === 'light-mode') {
@@ -299,23 +383,20 @@
       } else {
         setTheme('light-mode');
       }
-      // Note: Particles won't auto-update theme colors unless re-initialized with new options
     });
 
-    // Load saved theme preference or default to dark
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         setTheme(savedTheme);
     } else {
-        setTheme('dark-mode'); // Default to dark mode
+        setTheme('dark-mode');
     }
 
     // Dynamic Year for Footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
 
-    // DOMContentLoaded to ensure elements are ready
+    // DOMContentLoaded to ensure elements are ready for JS manipulations
     document.addEventListener('DOMContentLoaded', (event) => {
-      // Custom Greeting Logic
       const greetingElement = document.getElementById('custom-greeting');
       if (greetingElement) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -343,7 +424,6 @@
         greetingElement.textContent = greetingMessage;
       }
 
-      // tsParticles Initialization
       tsParticles.load("tsparticles", {
         fpsLimit: 60,
         interactivity: {
@@ -354,31 +434,31 @@
           },
           modes: {
             grab: { distance: 150, line_linked: { opacity: 0.7 } },
-            push: { quantity: 4 },
+            push: { quantity: 3 },
           },
         },
         particles: {
-          number: { value: 50, density: { enable: true, value_area: 800 } }, // Reduced for subtlety
+          number: { value: 45, density: { enable: true, value_area: 900 } },
           color: { value: ["#38bdf8", "#5eead4", "#818cf8"] },
           shape: { type: "circle" },
           opacity: {
-            value: {min: 0.1, max: 0.5}, // More subtle opacity
-            animation: { enable: true, speed: 0.4, minimumValue: 0.05, sync: false },
+            value: {min: 0.1, max: 0.4},
+            animation: { enable: true, speed: 0.3, minimumValue: 0.05, sync: false },
           },
           size: {
-            value: { min: 1, max: 4 }, // Smaller particles
-            animation: { enable: true, speed: 2, minimumValue: 0.1, sync: false },
+            value: { min: 1, max: 3.5 },
+            animation: { enable: true, speed: 1.8, minimumValue: 0.1, sync: false },
           },
           links: {
             enable: true,
-            distance: 120, // Slightly shorter links
-            color: "rgba(148, 163, 184, 0.2)", // More transparent links
-            opacity: 0.2,
+            distance: 130,
+            color: "rgba(148, 163, 184, 0.15)",
+            opacity: 0.15,
             width: 1,
           },
           move: {
             enable: true,
-            speed: 0.8, // Slower movement
+            speed: 0.7,
             direction: "none",
             random: true,
             straight: false,
