@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Who's Watching?</title>
+  <title>Who's Watching? | Shiv Shankar Sah</title>
   <!-- Google Analytics Global Site Tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
   <script>
@@ -12,99 +12,133 @@
     gtag('js', new Date());
     gtag('config', 'G-YOUR_MEASUREMENT_ID'); // <<< REPLACE G-YOUR_MEASUREMENT_ID
   </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      background-color: #111; /* Dark background for this initial page */
-      font-family: 'Inter', Arial, sans-serif; /* Consistent font with main page */
-      color: white;
+      background-color: #141414; /* Netflix dark background */
+      font-family: 'Inter', Arial, sans-serif;
+      color: #e5e5e5; /* Netflix light grey text */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh; /* Use min-height for flexibility */
+      min-height: 100vh;
       text-align: center;
-      padding: 1rem; /* Add some padding for smaller screens */
+      padding: 20px;
       box-sizing: border-box;
     }
-    h1 {
-      margin-bottom: 2.5rem; /* Increased bottom margin */
-      font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
-      font-weight: 800; /* Match main page header style */
-      color: #f1f5f9; /* Match main page text color */
+    .title-container {
+      margin-bottom: 50px; /* Space between title and profiles */
     }
-    .options {
+    .title-container h1 {
+      font-size: clamp(2.5rem, 6vw, 3.5rem); /* Responsive title */
+      font-weight: 500; /* Netflix uses a lighter weight for this title */
+      color: #fff; /* White title */
+    }
+    .profiles-container {
       display: flex;
-      gap: clamp(1.5rem, 4vw, 2.5rem); /* Responsive gap */
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
       justify-content: center;
-      max-width: 800px; /* Limit max width of options container */
-      width: 100%;
+      gap: clamp(20px, 4vw, 40px); /* Responsive gap */
     }
-    .option {
-      cursor: pointer;
+    .profile {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      color: #cbd5e1; /* Softer white for labels, similar to main page p */
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      padding: 1rem;
-      border-radius: 12px; /* Slightly more rounded */
-      background-color: rgba(30, 41, 59, 0.5); /* Subtle background for options, matching card bg from main */
-      border: 1px solid rgba(56, 189, 248, 0.3); /* Subtle border matching accent */
+      color: #808080; /* Netflix grey for profile names */
+      cursor: pointer;
+      transition: transform 0.2s ease-out;
     }
-    .option:hover {
-      transform: translateY(-5px) scale(1.05); /* Enhanced hover effect */
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      border-color: #38bdf8; /* Accent color on hover */
+    .profile:hover {
+      transform: scale(1.05); /* Slight scale on hover */
     }
-    .option img {
-      width: clamp(100px, 15vw, 130px); /* Responsive image size */
-      height: clamp(100px, 15vw, 130px);
-      border-radius: 8px; /* Consistent with main page cards */
-      object-fit: cover; /* Ensure image covers the area */
-      margin-bottom: 0.75rem; /* Spacing between image and label */
-      border: 2px solid transparent; /* For hover effect consistency */
+    .profile:hover .profile-name {
+      color: #e5e5e5; /* Lighter grey name on hover */
     }
-    .option:hover img {
-       border-color: #38bdf8;
+    .profile-avatar {
+      width: clamp(120px, 20vw, 180px); /* Responsive avatar size */
+      height: clamp(120px, 20vw, 180px);
+      border-radius: 6px; /* Netflix uses slightly rounded corners */
+      overflow: hidden; /* Ensure image stays within rounded corners */
+      margin-bottom: 10px; /* Space between avatar and name */
+      border: 3px solid transparent; /* Placeholder for hover border */
+      transition: border-color 0.2s ease-out;
+      background-color: #333; /* Fallback background for avatar div if image fails */
     }
-    .label {
-      margin-top: 0.5rem;
-      font-weight: 600; /* Match nav link weight */
-      font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Responsive label size */
-      color: #f1f5f9;
+    .profile:hover .profile-avatar {
+      border-color: #e5e5e5; /* White border on hover */
+    }
+    .profile-avatar img { /* <<<< ENSURING IMG TAG IS STYLED AND PRESENT */
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensure image covers avatar area */
+      display: block;
+    }
+    .profile-name {
+      font-size: clamp(1rem, 2.5vw, 1.3rem); /* Responsive name size */
+      font-weight: 500;
+      transition: color 0.2s ease-out;
     }
 
-    .page-footer {
-        position: absolute;
-        bottom: 10px;
-        font-size: 0.8rem;
-        color: #64748b;
+    .manage-profiles-button {
+        margin-top: 60px;
+        padding: 10px 25px;
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+        font-weight: 500;
+        color: #808080;
+        background-color: transparent;
+        border: 1px solid #808080;
+        border-radius: 2px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: color 0.2s, border-color 0.2s;
+    }
+    .manage-profiles-button:hover {
+        color: #e5e5e5;
+        border-color: #e5e5e5;
     }
   </style>
 </head>
 <body>
-  <h1>Who's Discovering Shiv?</h1>
-  <div class="options">
-    <a href="main.html?character=Recruiter" class="option" onclick="trackCharacterClick('Recruiter')">
-      <img src="images/recruiter.png" alt="Recruiter"> {/* <<<< UPDATED IMAGE PATH */}
-      <div class="label">Recruiter</div>
+  <div class="title-container">
+    <h1>Who's Watching?</h1>
+  </div>
+
+  <div class="profiles-container">
+    <a href="main.html?character=Recruiter" class="profile" onclick="trackCharacterClick('Recruiter')">
+      <div class="profile-avatar">
+        <img src="images/recruiter.png" alt="Recruiter profile avatar"> {/* <<<< IMAGE ADDED */}
+      </div>
+      <span class="profile-name">Recruiter</span>
     </a>
-    <a href="main.html?character=Developer" class="option" onclick="trackCharacterClick('Developer')">
-      <img src="images/developer.png" alt="Developer"> {/* <<<< UPDATED IMAGE PATH */}
-      <div class="label">Developer</div>
+
+    <a href="main.html?character=Developer" class="profile" onclick="trackCharacterClick('Developer')">
+      <div class="profile-avatar">
+        <img src="images/developer.png" alt="Developer profile avatar"> {/* <<<< IMAGE ADDED */}
+      </div>
+      <span class="profile-name">Developer</span>
     </a>
-    <a href="main.html?character=Curious%20Mind" class="option" onclick="trackCharacterClick('Curious Mind')">
-      <img src="images/stalker.png" alt="Curious Mind"> {/* <<<< UPDATED IMAGE PATH (using stalker.png for "Curious Mind") */}
-      <div class="label">Curious Mind</div>
+
+    <a href="main.html?character=Curious%20Mind" class="profile" onclick="trackCharacterClick('Curious Mind')">
+      <div class="profile-avatar">
+        <img src="images/stalker.png" alt="Curious Mind profile avatar"> {/* <<<< IMAGE ADDED (using stalker.png) */}
+      </div>
+      <span class="profile-name">Curious Mind</span>
     </a>
-    <a href="main.html?character=Adventurer" class="option" onclick="trackCharacterClick('Adventurer')">
-      <img src="images/adventurer.png" alt="Adventurer"> {/* <<<< UPDATED IMAGE PATH */}
-      <div class="label">Adventurer</div>
+
+    <a href="main.html?character=Adventurer" class="profile" onclick="trackCharacterClick('Adventurer')">
+      <div class="profile-avatar">
+        <img src="images/adventurer.png" alt="Adventurer profile avatar"> {/* <<<< IMAGE ADDED */}
+      </div>
+      <span class="profile-name">Adventurer</span>
     </a>
   </div>
+
+  <!-- Optional: "Manage Profiles" button - purely stylistic for the Netflix feel -->
+  <!-- <button class="manage-profiles-button">Manage Profiles</button> -->
 
   <script>
     function trackCharacterClick(characterName) {
