@@ -4,28 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Who's Watching?</title>
+  <!-- Google Analytics Global Site Tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YOUR_MEASUREMENT_ID'); // <<< REPLACE G-YOUR_MEASUREMENT_ID
+  </script>
   <style>
     body {
       margin: 0;
-      background-color: #111;
-      font-family: Arial, sans-serif;
+      background-color: #111; /* Dark background for this initial page */
+      font-family: 'Inter', Arial, sans-serif; /* Consistent font with main page */
       color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh; /* Use min-height for flexibility */
       text-align: center;
+      padding: 1rem; /* Add some padding for smaller screens */
+      box-sizing: border-box;
     }
     h1 {
-      margin-bottom: 2rem;
-      font-size: 3rem;
+      margin-bottom: 2.5rem; /* Increased bottom margin */
+      font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
+      font-weight: 800; /* Match main page header style */
+      color: #f1f5f9; /* Match main page text color */
     }
     .options {
       display: flex;
-      gap: 2rem;
+      gap: clamp(1.5rem, 4vw, 2.5rem); /* Responsive gap */
       flex-wrap: wrap;
       justify-content: center;
+      max-width: 800px; /* Limit max width of options container */
+      width: 100%;
     }
     .option {
       cursor: pointer;
@@ -33,41 +47,78 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      color: white;
+      color: #cbd5e1; /* Softer white for labels, similar to main page p */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 1rem;
+      border-radius: 12px; /* Slightly more rounded */
+      background-color: rgba(30, 41, 59, 0.5); /* Subtle background for options, matching card bg from main */
+      border: 1px solid rgba(56, 189, 248, 0.3); /* Subtle border matching accent */
+    }
+    .option:hover {
+      transform: translateY(-5px) scale(1.05); /* Enhanced hover effect */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-color: #38bdf8; /* Accent color on hover */
     }
     .option img {
-      width: 120px;
-      height: 120px;
-      border-radius: 10px;
-      transition: transform 0.2s;
+      width: clamp(100px, 15vw, 130px); /* Responsive image size */
+      height: clamp(100px, 15vw, 130px);
+      border-radius: 8px; /* Consistent with main page cards */
+      object-fit: cover; /* Ensure image covers the area */
+      margin-bottom: 0.75rem; /* Spacing between image and label */
+      border: 2px solid transparent; /* For hover effect consistency */
     }
     .option:hover img {
-      transform: scale(1.1);
+       border-color: #38bdf8;
     }
     .label {
       margin-top: 0.5rem;
+      font-weight: 600; /* Match nav link weight */
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Responsive label size */
+      color: #f1f5f9;
+    }
+
+    .page-footer {
+        position: absolute;
+        bottom: 10px;
+        font-size: 0.8rem;
+        color: #64748b;
     }
   </style>
 </head>
 <body>
-  <h1>Who's Watching?</h1>
+  <h1>Who's Discovering Shiv?</h1>
   <div class="options">
-    <a href="main.html" class="option">
-      <img src="https://i.imgur.com/YOUR_IMAGE1.png" alt="Recruiter">
+    <a href="main.html?character=Recruiter" class="option" onclick="trackCharacterClick('Recruiter')">
+      <img src="images/recruiter.png" alt="Recruiter"> {/* <<<< UPDATED IMAGE PATH */}
       <div class="label">Recruiter</div>
     </a>
-    <a href="main.html" class="option">
-      <img src="https://i.imgur.com/YOUR_IMAGE2.png" alt="Developer">
+    <a href="main.html?character=Developer" class="option" onclick="trackCharacterClick('Developer')">
+      <img src="images/developer.png" alt="Developer"> {/* <<<< UPDATED IMAGE PATH */}
       <div class="label">Developer</div>
     </a>
-    <a href="main.html" class="option">
-      <img src="https://i.imgur.com/YOUR_IMAGE3.png" alt="Stalker">
-      <div class="label">Stalker</div>
+    <a href="main.html?character=Curious%20Mind" class="option" onclick="trackCharacterClick('Curious Mind')">
+      <img src="images/stalker.png" alt="Curious Mind"> {/* <<<< UPDATED IMAGE PATH (using stalker.png for "Curious Mind") */}
+      <div class="label">Curious Mind</div>
     </a>
-    <a href="main.html" class="option">
-      <img src="https://i.imgur.com/YOUR_IMAGE4.png" alt="Adventurer">
+    <a href="main.html?character=Adventurer" class="option" onclick="trackCharacterClick('Adventurer')">
+      <img src="images/adventurer.png" alt="Adventurer"> {/* <<<< UPDATED IMAGE PATH */}
       <div class="label">Adventurer</div>
     </a>
   </div>
+
+  <script>
+    function trackCharacterClick(characterName) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'character_selection', {
+          'character_name': characterName,
+          'event_category': 'Engagement',
+          'event_label': 'Who is Watching Click'
+        });
+        console.log('GA Event Sent: character_selection - ' + characterName);
+      } else {
+        console.log('gtag not available. Clicked:', characterName);
+      }
+    }
+  </script>
 </body>
 </html>
