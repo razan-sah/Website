@@ -4,43 +4,77 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shiv Shankar Sah | System Engineer Portfolio</title>
-  <meta name="description" content="Shiv Shankar Sah - System Engineer and Cloud Enthusiast portfolio. Explore skills, projects, and experience in IT support, M365, Azure, and automation.">
-  <meta name="keywords" content="Shiv Shankar Sah, System Engineer, IT Support, Microsoft 365, Azure, PowerShell, Python, Cloud Portfolio">
-  <meta property="og:title" content="Shiv Shankar Sah | Portfolio">
-  <meta property="og:description" content="System Engineer specializing in cloud technologies and IT automation.">
-  <!-- <meta property="og:image" content="YOUR_FULL_URL_TO_A_PREVIEW_IMAGE.jpg">  Update with actual URL -->
-  <!-- <meta property="og:url" content="https://razan-sah.github.io/Website/"> Update with your live site URL -->
-  <meta name="twitter:card" content="summary_large_image">
-  <!-- <link rel="icon" href="favicon.png" type="image/png"> Update with your favicon -->
+  <meta name="description" content="Dedicated and results-oriented System Engineer with expertise in IT support, system administration, and network management, passionate about driving operational excellence.">
+  <meta name="keywords" content="Shiv Shankar Sah, System Engineer, IT Support, Microsoft 365, Azure, PowerShell, Python, Cloud Portfolio, Network Management, System Administration">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      transition: background-color 0.3s, color 0.3s;
-      position: relative;
-    }
+    /* --- THEME AND GLOBAL VARIABLES --- */
     :root {
-      --bg: #0f172a;
-      --text: #f1f5f9;
-      --card-bg: #1e293b;
-      --accent: #38bdf8;
-      --muted-text: #94a3b8;
-      --link-green: #90ee90;
-      /* --icon-fill is no longer needed for theme toggle if using emojis directly */
+        /* --- Dark Theme (Default) --- */
+        --bg-color: #12121c;
+        --text-color: #e0e0e0;
+        --text-color-light: #a0a0a0;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --link-color: #c084fc;
+        --link-hover-color: #d8b4fe;
+        --primary-gradient: linear-gradient(90deg, #8e2de2, #4a00e0);
+        --secondary-gradient: linear-gradient(90deg, #ff0084, #aa3eff, #4a69ff);
+        --available-color: #00c853;
+        --nav-link-active-bg: rgba(255, 255, 255, 0.1);
+
+        /* --- Theme Toggle Colors & Glows --- */
+        --sun-color: #fdd835;
+        --moon-color: #81d4fa;
+        --sun-glow: 0 0 7px var(--sun-color), 0 0 15px var(--sun-color), 0 0 25px rgba(253, 216, 53, 0.5);
+        --moon-glow: 0 0 7px var(--moon-color), 0 0 15px var(--moon-color), 0 0 25px rgba(129, 212, 250, 0.5);
+
+        /* --- Skill Card Glow Colors --- */
+        --glow-color-1: rgba(0, 220, 255, 0.8);   /* Cyan */
+        --glow-color-2: rgba(255, 0, 220, 0.8);   /* Magenta */
+        --glow-color-3: rgba(124, 252, 0, 0.8);   /* Lime Green */
+        --glow-color-4: rgba(255, 165, 0, 0.8);   /* Orange */
     }
-    .light-mode {
-      --bg: #f8fafc;
-      --text: #0f172a;
-      --card-bg: #e2e8f0;
-      --accent: #0ea5e9;
-      --muted-text: #475569;
-      --link-green: #22c55e;
+
+    body[data-theme="light"] {
+        /* --- Light Theme Overrides --- */
+        --bg-color: #f4f4f5;
+        --text-color: #1a1a1a;
+        --text-color-light: #525252;
+        --card-bg: #ffffff;
+        --card-border: rgba(0, 0, 0, 0.1);
+        --link-color: #4a00e0;
+        --link-hover-color: #8e2de2;
+        --nav-link-active-bg: rgba(0, 0, 0, 0.05);
+    }
+    
+    /* --- Global Styles & Resets --- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.7;
+        transition: background-color 0.4s ease, color 0.4s ease;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* Accessibility focus state */
+    a:focus-visible, button:focus-visible {
+        outline: 2px solid var(--link-color);
+        outline-offset: 2px;
+        border-radius: 4px;
     }
 
     #tsparticles {
@@ -52,396 +86,472 @@
       z-index: -1;
     }
 
-    .header-container {
-        position: relative;
-        background: rgba(30, 41, 59, 0.85);
-        padding: 1.5rem 2rem;
-        z-index: 10;
-    }
-    .light-mode .header-container {
-        background: rgba(241, 245, 249, 0.9);
+    /* --- Glassmorphism Helper Class --- */
+    .glass-ui {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--card-border);
+        transition: background 0.3s ease, border 0.3s ease;
     }
 
-    header {
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
+    /* --- Navigation Bar --- */
+    .navbar {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        padding: 10px 15px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        gap: 25px;
     }
-    header h1 { font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 800; margin-bottom: 0.25rem; }
-    header p { font-size: clamp(1rem, 3vw, 1.2rem); color: var(--muted-text); }
-    #custom-greeting {
-        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-        color: var(--muted-text);
-        margin-bottom: 0.75rem;
-        font-weight: 600;
-    }
-    nav { margin-top: 1.5rem; }
-    nav a { color: var(--accent); margin: 0 0.5rem; text-decoration: none; font-weight: 600; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 4px; }
-    nav a:hover { color: var(--text); background-color: rgba(128,128,128,0.1); }
 
-    /* New Emoji Theme Toggle Button Styles */
-    #theme-toggle-button {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        background-color: var(--card-bg);
-        color: var(--text); /* For emoji color */
-        border: 1px solid var(--accent);
+    .logo {
+        font-weight: 700;
+        font-size: 16px;
+        width: 36px;
+        height: 36px;
+        background: var(--primary-gradient);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 12px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .nav-links a.active, .nav-links a:hover {
+        background-color: var(--nav-link-active-bg);
+    }
+    .nav-links a.active {
+        font-weight: 700;
+    }
+
+    /* --- THEME TOGGLE ICON STYLES --- */
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
         cursor: pointer;
-        padding: 0.5rem 0.75rem;
-        font-size: 1.5rem; /* Adjust for emoji size */
-        line-height: 1; /* Center emoji vertically */
-        border-radius: 8px;
-        transition: background-color 0.3s, color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
-        outline: none;
-        z-index: 20;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        user-select: none; /* Prevent text selection of emoji */
+        background-color: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.4s ease;
+        margin-left: auto;
+        flex-shrink: 0;
     }
-    .light-mode #theme-toggle-button {
-        border-color: var(--accent);
+    .theme-toggle:hover {
+        background-color: var(--nav-link-active-bg);
     }
-    #theme-toggle-button:hover {
-        background-color: var(--accent);
-        color: var(--bg); /* Emoji color on hover, contrasting with accent */
-        transform: scale(1.1);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    #theme-toggle-button:active {
-        transform: scale(0.98);
-    }
-    /* End New Emoji Theme Toggle Button Styles */
-
-    section {
-      padding: 3rem 1.5rem;
-      max-width: 900px;
-      margin: auto;
-      position: relative;
-      z-index: 1;
-      background-color: var(--bg);
-    }
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.2rem);
-      margin-bottom: 1.5rem;
-      border-left: 4px solid var(--accent);
-      padding-left: 0.75rem;
-      font-weight: 800;
-    }
-    .skills, .projects, .experience { display: grid; gap: 1.5rem; }
-    .skills {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-    .card {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 8px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    }
-    .light-mode .card {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.07);
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
-    }
-    .card h3 {
-        color: var(--accent);
-        margin-bottom: 0.5rem;
-        font-size: 1.25rem;
-    }
-    .card p em {
-        display: block;
-        margin-top: 0.75rem;
-        font-size: 0.9rem;
-        color: var(--muted-text);
-    }
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6em;
-      margin: 0.5rem 0.5rem 0.5rem 0;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.7rem 1.3rem;
-      border: 1.5px solid var(--accent);
-      border-radius: 6px;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s ease;
-    }
-    .contact-link:hover {
-        background-color: var(--accent);
-        color: var(--card-bg);
-        transform: translateY(-2px);
-    }
-    .contact-link:hover .contact-icon {
-        fill: var(--card-bg);
-    }
-    .contact-icon {
-      fill: currentColor;
+    .theme-toggle .icon {
       width: 20px;
       height: 20px;
-      transition: fill 0.2s;
+      transition: color 0.4s ease;
     }
-    .projects .card a {
-        color: var(--link-green);
+    body[data-theme="dark"] .moon-icon { display: none; }
+    body[data-theme="light"] .sun-icon { display: none; }
+    body[data-theme="dark"] .theme-toggle { box-shadow: var(--sun-glow); }
+    body[data-theme="dark"] .sun-icon { color: var(--sun-color); }
+    body[data-theme="light"] .theme-toggle { box-shadow: var(--moon-glow); }
+    body[data-theme="light"] .moon-icon { color: var(--moon-color); }
+
+    /* --- Hero Section --- */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; position: relative; z-index: 1; }
+    .hero h1 { font-size: clamp(3rem, 10vw, 5rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-color); }
+    .role-container {
+        padding: 0.5rem 1.5rem; border-radius: 999px; color: #fff; font-size: clamp(1rem, 4vw, 1.25rem); font-weight: 500;
+        margin-bottom: 1.5rem; min-height: 48px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+        background: linear-gradient( 270deg, #662D8C, #ED1E79, #F7971E, #23a6d5, #662D8C );
+        background-size: 400% 400%; animation: gradientFlowAnimation 15s ease infinite;
+    }
+    @keyframes gradientFlowAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    #role-text::after { content: '|'; animation: blink 0.7s infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero .tagline { font-size: clamp(1rem, 2.5vw, 1.3rem); max-width: 600px; color: var(--text-color-light); margin-bottom: 2rem; }
+    .social-links { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
+    .social-links a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 10px 20px; border-radius: 999px; text-decoration: none; color: var(--text-color); font-weight: 500; transition: transform 0.2s ease, background-color 0.2s ease; }
+    .social-links a:hover { transform: translateY(-3px); background-color: var(--nav-link-active-bg); }
+    .social-links .icon { width: 18px; height: 18px; fill: currentColor; }
+    .availability { display: flex; align-items: center; gap: 0.5rem; background-color: rgba(0, 200, 83, 0.1); color: var(--available-color); padding: 8px 16px; border-radius: 999px; font-weight: 500; font-size: 14px; }
+    .pulsating-dot { width: 8px; height: 8px; background-color: var(--available-color); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(0, 200, 83, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); } }
+    .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-color-light); font-size: 12px; }
+    .scroll-indicator .icon { width: 24px; height: 24px; animation: bounce 2s infinite; stroke: currentColor; }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+    
+    /* --- General Section & Card Styling --- */
+    section { padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+    .section-title { font-size: clamp(2rem, 5vw, 2.5rem); margin-bottom: 40px; border-left: 5px solid; border-image: var(--primary-gradient) 1; padding-left: 15px; font-weight: 800; color: var(--text-color); }
+    .card { background: var(--card-bg); color: var(--text-color); padding: 25px; border-radius: 12px; transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); border: 1px solid var(--card-border); }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+    .card h3 { color: var(--text-color); margin-bottom: 10px; font-size: 1.25rem; }
+    .card p { color: var(--text-color-light); margin-bottom: 0.5rem; }
+    .card p:last-of-type { margin-bottom: 0; }
+    .card p em { display: block; margin-top: 15px; font-size: 0.9rem; color: var(--text-color-light); opacity: 0.8; }
+    .card a { color: var(--link-color); text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+    .card a:hover { color: var(--link-hover-color); }
+    
+    .contact-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .contact-grid a { color: var(--text-color); display: inline-flex; align-items: center; gap: 10px; text-decoration: none; padding: 12px 20px; border-radius: 8px; transition: all 0.2s ease; }
+    .contact-grid a:hover { background-color: var(--card-bg); color: var(--link-color); }
+    .contact-grid svg { width: 24px; height: 24px; fill: currentColor; }
+    .skills { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); display: grid; gap: 20px;}
+    .projects { display: grid; gap: 20px; }
+    @media (min-width: 768px) { .projects { grid-template-columns: 1fr 1fr; } }
+    
+    /* --- Skill Card Hover Glow --- */
+    .skills .card:hover { transform: translateY(-5px); }
+    .skills .card:nth-child(4n+1):hover { box-shadow: 0 0 20px -5px var(--glow-color-1); }
+    .skills .card:nth-child(4n+2):hover { box-shadow: 0 0 20px -5px var(--glow-color-2); }
+    .skills .card:nth-child(4n+3):hover { box-shadow: 0 0 20px -5px var(--glow-color-3); }
+    .skills .card:nth-child(4n+4):hover { box-shadow: 0 0 20px -5px var(--glow-color-4); }
+    
+    /* --- Availability Section Styles --- */
+    .availability-card h3 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    .availability-card h3 .icon {
+        color: var(--available-color);
+        width: 28px;
+        height: 28px;
+    }
+    .availability-list {
+        list-style: none;
         padding: 0;
-        border: none;
-        text-decoration: underline;
-        font-weight: normal;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
-    .projects .card a:hover {
-        background-color: transparent;
-        color: var(--text);
+    .availability-list li {
+        padding: 12px 15px;
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
     }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: var(--muted-text);
-      background: var(--card-bg);
-      position: relative;
-      z-index: 1;
+    .availability-list .icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
     }
+    .availability-list .icon.check { color: var(--available-color); }
+    .availability-list .icon.relocate { color: #29b6f6; } /* Light Blue */
+    .availability-list .icon.remote { color: #7e57c2; }  /* Deep Purple */
+    
+    footer { text-align: center; padding: 40px 20px; font-size: 0.9rem; color: var(--text-color-light); border-top: 1px solid var(--card-border); transition: all 0.4s ease; background-color: var(--card-bg); }
 
     @media (max-width: 768px) {
-        .header-container { padding: 1rem 1.5rem; }
-        #theme-toggle-button { top: 1rem; right: 1rem; font-size: 1.3rem; padding: 0.4rem 0.6rem;}
-        header h1 { font-size: 2rem; }
-        header p { font-size: 1rem; }
-        nav a { margin: 0 0.4rem; font-size: 0.9rem; }
-        section { padding: 2.5rem 1rem; }
-        .section-title { font-size: 1.6rem; }
-        .contact-link { padding: 0.6rem 1rem; font-size: 0.9rem; }
+        .navbar { display: none; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); }
+        .section-title { font-size: clamp(1.6rem, 3.5vw, 2rem); margin-bottom: 20px; }
+        section { padding: 40px 15px; }
     }
-    @media (max-width: 480px) {
-        nav { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; }
-        nav a { margin: 0.2rem 0; }
-        .skills { grid-template-columns: 1fr; }
-        .contact { display: flex; flex-direction: column; align-items: stretch; }
-        .contact-link { width: 100%; text-align: center; margin: 0.3rem 0; justify-content: center;}
-    }
-
   </style>
 </head>
-<body>
+<body data-theme="dark">
+
   <div id="tsparticles"></div>
 
-  <div class="header-container">
-    <button id="theme-toggle-button" aria-label="Toggle theme">
-      {/* Emoji will be inserted by JavaScript */}
-    </button>
-    <header>
-      <div id="custom-greeting"></div>
-      <h1 data-aos="fade-down">Shiv Shankar Sah</h1>
-      <p data-aos="fade-up">System Engineer | Cloud Enthusiast | IT Support Specialist</p>
-      <nav data-aos="fade-up" data-aos-delay="100">
+  <!-- Navigation Bar -->
+  <header class="navbar glass-ui">
+      <div class="logo">SS</div>
+      <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </nav>
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle website theme">
+        <svg class="icon sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.591a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.803 17.803a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0v2.25A.75.75 0 0112 21zM5.197 17.803a.75.75 0 010-1.06l1.591-1.59a.75.75 0 011.06 1.06l-1.59 1.591a.75.75 0 01-1.06 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.106 5.106a.75.75 0 011.06 0l1.591 1.59a.75.75 0 01-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"></path></svg>
+        <svg class="icon moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69a.75.75 0 01.981.981A10.503 10.503 0 0118 18a10.5 10.5 0 01-10.5-10.5c0-1.562.32-3.045.898-4.384a.75.75 0 01.819.162z" clip-rule="evenodd"></path></svg>
+      </button>
     </header>
-  </div>
 
-  <main>
-    <section id="about" data-aos="fade-up" data-aos-duration="800">
-      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">About Me</h2>
-      <p data-aos="fade-up" data-aos-delay="200">I’m a dedicated System Engineer with strong experience in IT support, Microsoft 365, Azure, and automation. Known for my troubleshooting skills and documentation habits, I bring reliability and clarity into every solution. Currently excelling at Bluescale, I'm focused on transitioning into deeper cloud roles with a strong infrastructure and cybersecurity mindset.</p>
-    </section>
+  <!-- Main Hero Content -->
+  <main id="hero" class="hero">
+      <h1>Shiv Shankar Sah</h1>
+      <div class="role-container"><span id="role-text"></span></div>
+      <p class="tagline">Transforming Complex IT Challenges Into Seamless Solutions</p>
+      <div class="social-links">
+          <a href="https://github.com/razan-sah" target="_blank" class="social-link glass-ui">
+              <svg class="icon" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+              GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/razansah/" target="_blank" class="social-link glass-ui">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.25 6.5 1.75 1.75 0 016.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.64 1.64 0 0013 14.19a1.65 1.65 0 00.05 1.06V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.35 1.12 3.35 4.32z"></path></svg>
+              LinkedIn
+          </a>
+          <a href="mailto:Rajansah4u@gmail.com" class="social-link glass-ui">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M1.75 3h20.5c.966 0 1.75.784 1.75 1.75v14.5A1.75 1.75 0 0122.25 21H1.75A1.75 1.75 0 010 19.25V4.75C0 3.784.784 3 1.75 3zM1.5 4.75v.432l9.93 6.62a1.25 1.25 0 001.14 0L22.5 5.182V4.75a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25zM22.5 6.55l-9.111 6.074a2.75 2.75 0 01-2.778 0L1.5 6.55V19.25c0 .138.112.25.25.25h20.5a.25.25 0 00.25-.25V6.55z"></path></svg>
+              Email
+          </a>
+      </div>
+      <div class="availability"><span class="pulsating-dot"></span>Seeking new opportunities</div>
+      <div class="scroll-indicator">
+          <span>Scroll for more</span>
+          <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+      </div>
+  </main>
+  
+  <section id="about" data-aos="fade-up">
+    <h2 class="section-title">About Me</h2>
+    <p>Dedicated and results-oriented System Engineer with a proven track record of exceeding SLAs and delivering exceptional performance. With extensive expertise in IT support, system administration, and network management, I am passionate about leveraging my technical and problem-solving skills to drive operational excellence. Eager to apply my expertise and practical knowledge to contribute effectively in a challenging IT service desk role, while continuing to grow and add value to the team and organization.</p>
+  </section>
 
-    <section id="skills" data-aos="zoom-in-up" data-aos-duration="700">
-      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Skills</h2>
+  <!-- "Available for Hire" section was moved from here -->
+
+  <section id="skills" data-aos="zoom-in-up">
+    <h2 class="section-title">Skills</h2>
       <div class="skills">
-        <div class="card" data-aos="fade-up" data-aos-delay="100">Microsoft 365, Azure, Exchange, Intune</div>
-        <div class="card" data-aos="fade-up" data-aos-delay="150">Active Directory, Entra ID, SharePoint</div>
-        <div class="card" data-aos="fade-up" data-aos-delay="200">Windows Server & Desktop OS</div>
-        <div class="card" data-aos="fade-up" data-aos-delay="250">macOS, Linux Fundamentals</div>
-        <div class="card" data-aos="fade-up" data-aos-delay="300">Python, PowerShell Scripting & Automation</div>
-        <div class="card" data-aos="fade-up" data-aos-delay="350">Datto RMM, Autotask, Jira, Confluence</div>
-        <div class="card" data-aos="fade-up" data-aos-delay="400">CrowdStrike, Mimecast, MDM Tools</div>
-        <div class="card" data-aos="fade-up" data-aos-delay="450">Networking (DNS, DHCP, VPN, VLANs)</div>
-        <div class="card" data-aos="fade-up" data-aos-delay="500">Virtualization (Hyper-V, VMware)</div>
+      <div class="card">Active Directory</div>
+      <div class="card">Microsoft Office 365, Azure, Exchange, Intune, Teams, Entra, SharePoint</div>
+      <div class="card">Operating system (Mac OS, Windows 10,11, Linux)</div>
+      <div class="card">Backup solutions: Datto Backupify</div>
+      <div class="card">Assisting users in person and remotely</div>
+      <div class="card">ITSM/ESM ticketing systems (Datto Autotask, Jira)</div>
+      <div class="card">Programming and scripting: Python, PowerShell</div>
+      <div class="card">Mobile Device Management (MDM) tools: MobileIron, Intune</div>
+      <div class="card">Email security tools: Mimecast, Datto SAAS Defense</div>
+      <div class="card">Network troubleshooting tools: Meraki, NetSpot Wi-Fi Analyser, Datto Network</div>
+      <div class="card">Virtualization & remote access tools: Datto RMM, TeamViewer, Splashtop, Quick Assist</div>
+      <div class="card">Strong interest in IT infrastructure and hardware - Technical Writing and documenting.</div>
+      <div class="card">Endpoint security tools: CrowdStrike, Forcepoint, DeepInstinct, Webroot. SentinelOne, Sophos</div>
+      <div class="card">Documentation Tool: IT glue</div>
+      <div class="card">Security Tools: Threatlocker, Qualys, Dark Web ID</div>
+      <div class="card">Critical thinking: Proven ability to develop innovative solutions</div>
+      <div class="card">Time management: Efficient workload prioritization to meet deadlines</div>
+      <div class="card">Communications: Strong verbal and written skills, confident with remote telecommunicating</div>
       </div>
     </section>
 
-    <section id="projects" data-aos="slide-up" data-aos-duration="700" data-aos-easing="ease-in-out">
-      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Projects</h2>
+  <section id="projects" data-aos="slide-up">
+    <h2 class="section-title">Projects</h2>
       <div class="projects">
-        <div class="card" data-aos="flip-left" data-aos-delay="200" data-aos-duration="900">
+      <div class="card">
           <h3>Password Expiry Notifier (Desktop App)</h3>
           <p>A C# WPF desktop application that uses MSAL for Microsoft 365 authentication. It identifies users with soon-to-expire passwords, sends customized email reminders via Microsoft Graph API, logs all actions, and can be configured for scheduled checks.</p>
-          <a href="https://github.com/razan-sah/password-expiry-notifier" target="_blank">View on GitHub</a>
+        <a href="https://github.com/razan-sah/password-expiry-notifier" target="_blank">View on GitHub →</a>
         </div>
-        <div class="card" data-aos="flip-right" data-aos-delay="300" data-aos-duration="900">
+      <div class="card">
           <h3>Portfolio Website (This Site!)</h3>
           <p>Personal portfolio website built with HTML, CSS, and JavaScript, featuring interactive elements like particle backgrounds (tsParticles) and theme toggling. Hosted on GitHub Pages. Includes analytics for user engagement tracking.</p>
-          <a href="https://github.com/razan-sah/Website" target="_blank">View on GitHub</a>
-        </div>
+        <a href="https://github.com/razan-sah/Website" target="_blank">View on GitHub →</a>
       </div>
+    </div>
+  </section>
+
+  <section id="experience" data-aos="fade-left">
+    <h2 class="section-title">Experience</h2>
+    <div class="experience">
+      <div class="card">
+        <h3>System Engineer – Bluescale</h3>
+        <p>Led escalated technical support, resolving complex issues from the System Administration team.</p>
+        <p>Managed the full incident lifecycle (Incident, Request, Problem Management) to minimize service disruption and implement long-term solutions.</p>
+        <p>Administered and troubleshot core network infrastructure, including Active Directory, DNS, DHCP, and Group Policy.</p>
+        <p>Oversaw network and server performance, security controls, and business continuity through Datto Backupify management and server patching.</p>
+        <p>Developed and maintained technical documentation and collaborated with vendors for advanced support.</p>
+        <p><em>Sep 2023 – Current</em></p>
+      </div>
+      <div class="card">
+        <h3>System Administrator – Bluescale</h3>
+        <p>Provided primary technical support, resolving user issues via calls, email, and ticketing systems within strict SLAs.</p>
+        <p>Installed, configured, and maintained networks, servers, and workstations, utilizing Datto RMM for remote management and software deployment.</p>
+        <p>Managed endpoint security (CrowdStrike, Forcepoint), MDM solutions, and VPN access to ensure a secure user environment.</p>
+        <p>Performed routine system maintenance, operational backups, and contributed to process improvement through documentation.</p>
+        <p><em>Jan 2023 – Sep 2023</em></p>
+      </div>
+    </div>
     </section>
 
-    <section id="experience" data-aos="fade-left" data-aos-duration="800">
-      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Experience</h2>
+  <section id="education" data-aos="fade-right">
+    <h2 class="section-title">Education & Certificates</h2>
       <div class="experience">
-        <div class="card" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="700">
-          <h3>System Engineer – Bluescale</h3>
-          <p>Provide L2/L3 IT support, resolving escalated technical tickets for diverse clients. Manage and maintain client infrastructures including servers, networks, and cloud services (Microsoft 365, Azure). Implement and manage backup solutions, server patching, and endpoint security tools (CrowdStrike, Datto SAAS Defense, Forcepoint). Key contributor to documentation and process improvement.</p>
-          <p><em>Jan 2023 – Present</em></p>
+      <div class="card">
+        <h3>Bachelor of Information Technology (Crown institute, Sydney)</h3>
+        <p>During my study at CIHE, I have learned and developed a wide variety of skills and knowledge. I got to learn troubleshooting, Software development, web development, business analytics, project management, and Networking.</p>
+        <p><em>Graduate 2023</em></p>
+      </div>
+      <div class="card">
+        <h3>Diploma in Networking (Hibernia Institute, Sydney)</h3>
+        <p>In Diploma I learned Network automation and maintenance, Windows, Security, and project management.</p>
+        <p><em>Graduate 2019</em></p>
+      </div>
+      <div class="card">
+        <h3>Google IT Support Specialization (Coursera, 2022)</h3>
+        <p>The IT support program developed by Google covers troubleshooting, customer service, networking, operating systems, directory services, basic Linux, system administration, and security, including hands-on labs.</p>
+        <p><em>2022</em></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="volunteering" data-aos="fade-up">
+    <h2 class="section-title">Volunteering Work</h2>
+    <div class="experience">
+      <div class="card">
+        <h3>Book For A Cause</h3>
+        <p>Build 3 public libraries in the hills part of Nepal where books are not available easily.</p>
+        <p><em>2016 -2018</em></p>
         </div>
       </div>
     </section>
 
-    <section id="contact" data-aos="zoom-out" data-aos-duration="700">
-      <h2 class="section-title" data-aos="fade-right" data-aos-delay="100">Contact</h2>
-      <div class="contact" data-aos="fade-up" data-aos-delay="200">
-        <a href="mailto:rajansah4u@gmail.com" class="contact-link">
-          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+  <!-- ========= "Available for Hire" Section Moved Here ========= -->
+  <section id="availability-section" data-aos="fade-up">
+    <div class="card availability-card glass-ui">
+        <h3>
+            <!-- [MODIFIED] Replaced the complex SVG with a cleaner rocket icon -->
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M15.59,2.254a.75.75,0,0,0-1.018-1.088l-4.5,1.75a.75.75,0,0,0-.464.67v.446c-.046.012-.092.024-.138.038L5.72,5.72a.75.75,0,0,0-.67.464l-1.75,4.5a.75.75,0,0,0,1.088,1.018l4.5-1.75a.75.75,0,0,0,.464-.67v-.446c.046-.012.092-.024.138-.038l3.75-1.65a.75.75,0,0,0,.67-.464l1.75-4.5Z" />
+                <path d="M18.75,8.25a.75.75,0,0,0,.75-.75V6a.75.75,0,0,0-1.5,0V7.5a.75.75,0,0,0,.75.75Z M16.5,6a.75.75,0,0,0,.75-.75V3.75a.75.75,0,0,0-1.5,0V5.25A.75.75,0,0,0,16.5,6Z M14.25,3.75a.75.75,0,0,0,.75-.75V1.5a.75.75,0,0,0-1.5,0V3A.75.75,0,0,0,14.25,3.75Z"/>
+            </svg>
+            Available for Hire
+        </h3>
+        <ul class="availability-list">
+            <li>
+                <svg class="icon check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.06-1.06l-3.103 3.103-1.53-1.53a.75.75 0 00-1.06 1.06l2.06 2.06a.75.75 0 001.06 0l3.633-3.633z" clip-rule="evenodd"></path></svg>
+                <span>Open to New Opportunities</span>
+            </li>
+            <li>
+                <svg class="icon relocate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.75 16.5C12.75 15.6716 12.0784 15 11.25 15C10.4216 15 9.75 15.6716 9.75 16.5C9.75 17.3284 10.4216 18 11.25 18C12.0784 18 12.75 17.3284 12.75 16.5Z"></path><path fill-rule="evenodd" d="M12 2.25C17.799 2.25 21.75 6.201 21.75 12C21.75 17.799 17.799 21.75 12 21.75C6.201 21.75 2.25 17.799 2.25 12C2.25 6.201 6.201 2.25 12 2.25ZM12.3813 3.82193C8.03531 4.13524 4.13524 8.03531 3.82193 12.3813C3.76999 13.011 4.28811 13.5 4.91924 13.5H5.75C6.33782 13.5 6.81478 13.0526 6.85812 12.4678C7.0913 8.94165 8.94165 7.0913 12.4678 6.85812C13.0526 6.81478 13.5 6.33782 13.5 5.75V4.91924C13.5 4.28811 13.011 3.76999 12.3813 3.82193ZM17.1419 11.5322C16.9087 15.0583 15.0583 16.9087 11.5322 17.1419C10.9474 17.1852 10.5 17.6622 10.5 18.25V19.0808C10.5 19.7119 10.989 20.23 11.6187 20.1781C15.9647 19.8648 19.8648 15.9647 20.1781 11.6187C20.23 10.989 19.7119 10.5 19.0808 10.5H18.25C17.6622 10.5 17.1852 10.9474 17.1419 11.5322Z" clip-rule="evenodd"></path></svg>
+                <span>Open to Relocation</span>
+            </li>
+            <li>
+                <svg class="icon remote" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd"></path></svg>
+                <span>Remote & On-site Available</span>
+            </li>
+        </ul>
+    </div>
+  </section>
+
+  <section id="contact" data-aos="zoom-out">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <a href="mailto:Rajansah4u@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
           <span>Email Me</span>
         </a>
-        <a href="https://www.linkedin.com/in/razansah" target="_blank" class="contact-link">
-          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-11.5 4H5.62v10H8.5V7zm-1.44 0a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88zM18.5 7H15.6c-1.21 0-2.08.6-2.46 1.79V7H10.5v10h2.88v-5.38c0-1.11.54-1.65 1.57-1.65s1.55.51 1.55 1.65V17H19.5V7z"/></svg>
+      <a href="https://www.linkedin.com/in/razansah/" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-11.5 4H5.62v10H8.5V7zm-1.44 0a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88zM18.5 7H15.6c-1.21 0-2.08.6-2.46 1.79V7H10.5v10h2.88v-5.38c0-1.11.54-1.65 1.57-1.65s1.55.51 1.55 1.65V17H19.5V7z"/></svg>
           <span>LinkedIn</span>
         </a>
-        <a href="https://github.com/razan-sah" target="_blank" class="contact-link">
-          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.3.8 1 .8 2V23c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
-          <span>GitHub</span>
-        </a>
-        <a class="contact-link resume-btn" href="resume.pdf" download>
-          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+      <a href="resume.pdf" download class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
           <span>Download Resume</span>
         </a>
       </div>
     </section>
-  </main>
 
   <footer>
     © <span id="current-year"></span> Shiv Shankar Sah. All rights reserved.
   </footer>
 
+  <!-- VENDOR SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
+  <!-- MAIN SCRIPT -->
   <script>
-    // Initialize AOS (Animate On Scroll)
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 120,
-        easing: 'ease-in-out',
-    });
+    document.addEventListener('DOMContentLoaded', () => {
 
-    // Theme Toggle
-    const themeToggleButton = document.getElementById('theme-toggle-button');
-    const body = document.body;
-    const sunIcon = '🌞'; // Unicode: U+1F506
-    const moonIcon = '🌙'; // Unicode: U+1F319
-
-    function setTheme(themeName) {
-        localStorage.setItem('theme', themeName);
-        if (themeName === 'light-mode') {
-            body.classList.add('light-mode');
-            themeToggleButton.textContent = moonIcon;
-            themeToggleButton.setAttribute('aria-label', 'Switch to dark theme');
-        } else { // dark-mode
-            body.classList.remove('light-mode');
-            themeToggleButton.textContent = sunIcon;
-            themeToggleButton.setAttribute('aria-label', 'Switch to light theme');
+        // --- 1. TYPEWRITER EFFECT ---
+        const roleTextElement = document.getElementById('role-text');
+        const roles = ["System Engineer", "IT Support Specialist", "Network Administrator", "Cloud Enthusiast", "Problem Solver"];
+        let roleIndex = 0, charIndex = 0, isDeleting = false;
+        
+        function type() {
+            const currentRole = roles[roleIndex];
+            const speed = isDeleting ? 75 : 150;
+            roleTextElement.textContent = currentRole.substring(0, isDeleting ? charIndex-- : charIndex++);
+            if (!isDeleting && charIndex === currentRole.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            }
+            else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+            }
+            setTimeout(type, speed);
         }
-    }
+        setTimeout(type, 500);
 
-    themeToggleButton.addEventListener('click', () => {
-      if (body.classList.contains('light-mode')) {
-        setTheme('dark-mode');
-      } else {
-        setTheme('light-mode');
-      }
-    });
+        // --- 2. ANIMATE ON SCROLL (AOS) ---
+        AOS.init({ once: true, duration: 800, offset: 100 });
 
-    // Load saved theme preference or default to dark
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        setTheme(savedTheme);
-    } else {
-        setTheme('dark-mode'); // Default to dark mode
-    }
-
-    // Dynamic Year for Footer
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-
-    // DOMContentLoaded to ensure elements are ready for JS manipulations
-    document.addEventListener('DOMContentLoaded', (event) => {
-      const greetingElement = document.getElementById('custom-greeting');
-      if (greetingElement) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const character = urlParams.get('character');
-        let greetingMessage = "Welcome! Exploring Shiv's Digital Space.";
-
-        if (character) {
-          const safeCharacterName = character.replace(/[^a-zA-Z0-9 ]/g, "");
-          greetingMessage = `Hello, ${safeCharacterName}! You're now viewing Shiv's portfolio.`;
-          switch (character.toLowerCase()) {
-            case 'recruiter':
-              greetingMessage = `Welcome, Recruiter! Discover Shiv's qualifications and projects.`;
-              break;
-            case 'developer':
-              greetingMessage = `Hey Developer! Check out Shiv's tech skills and contributions.`;
-              break;
-            case 'curious mind':
-              greetingMessage = `Greetings, Curious Mind! Delve into Shiv's world of technology.`;
-              break;
-            case 'adventurer':
-              greetingMessage = `Hail, Adventurer! You're about to explore Shiv's tech journey.`;
-              break;
-          }
-        }
-        greetingElement.textContent = greetingMessage;
-      }
-
+        // --- 3. PARTICLE BACKGROUND ---
       tsParticles.load("tsparticles", {
         fpsLimit: 60,
-        interactivity: {
-          events: {
-            onHover: { enable: true, mode: "grab" },
-            onClick: { enable: true, mode: "push" },
-            resize: true,
-          },
-          modes: {
-            grab: { distance: 150, line_linked: { opacity: 0.7 } },
-            push: { quantity: 3 },
-          },
-        },
+            interactivity: { events: { onHover: { enable: true, mode: "grab" }, resize: true } },
         particles: {
-          number: { value: 45, density: { enable: true, value_area: 900 } },
-          color: { value: ["#38bdf8", "#5eead4", "#818cf8"] },
+                number: { value: 30, density: { enable: true, value_area: 800 } },
+                color: { value: "#555555" },
           shape: { type: "circle" },
-          opacity: {
-            value: {min: 0.1, max: 0.4},
-            animation: { enable: true, speed: 0.3, minimumValue: 0.05, sync: false },
-          },
-          size: {
-            value: { min: 1, max: 3.5 },
-            animation: { enable: true, speed: 1.8, minimumValue: 0.1, sync: false },
-          },
-          links: {
-            enable: true,
-            distance: 130,
-            color: "rgba(148, 163, 184, 0.15)",
-            opacity: 0.15,
-            width: 1,
-          },
-          move: {
-            enable: true,
-            speed: 0.7,
-            direction: "none",
-            random: true,
-            straight: false,
-            outModes: { default: "out" },
-          },
+                opacity: { value: 0.3, random: true },
+                size: { value: 4, random: true },
+                links: { enable: true, distance: 150, color: "#555555", opacity: 0.2, width: 1 },
+                move: { enable: true, speed: 0.5, direction: "none", random: true, out_mode: "out" },
         },
         detectRetina: true,
       });
+
+        // --- 4. THEME TOGGLER ---
+        const themeToggle = document.getElementById('theme-toggle');
+        let isLightMode = document.body.getAttribute('data-theme') === 'light';
+
+        themeToggle.addEventListener('click', () => {
+            isLightMode = !isLightMode;
+            document.body.setAttribute('data-theme', isLightMode ? 'light' : 'dark');
+            
+            // Optional: Play a sound on click
+            const switchSound = new Audio('https://assets.codepen.io/16327/switch.mp3');
+            switchSound.volume = 0.3;
+            switchSound.play();
+        });
+
+        // --- 5. SCROLL SPY FOR NAVIGATION ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        if (navLinks.length > 0) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -70% 0px' });
+            sections.forEach(section => observer.observe(section));
+        }
+        
+        // --- 6. DYNAMIC YEAR FOR FOOTER ---
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     });
   </script>
 </body>
